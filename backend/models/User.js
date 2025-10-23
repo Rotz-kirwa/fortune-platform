@@ -4,15 +4,49 @@ const bcrypt = require('bcryptjs');
 
 // Create Users table if not exists
 const initUserTable = async () => {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT now()
-    )
-  `);
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        role VARCHAR(20) DEFAULT 'user',
+        phone_number VARCHAR(15),
+        status VARCHAR(20) DEFAULT 'active',
+        last_login TIMESTAMP,
+        created_at TIMESTAMP DEFAULT now()
+      )
+    `);
+    
+    // Try to add columns if they don't exist (for existing databases)
+    // Wrap in try-catch in case of permission issues
+    try {
+      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'user';`);
+    } catch (err) {
+      console.log('Note: Could not alter users table (role). Column may already exist.');
+    }
+    
+    try {
+      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_number VARCHAR(15);`);
+    } catch (err) {
+      console.log('Note: Could not alter users table (phone_number). Column may already exist.');
+    }
+    
+    try {
+      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'active';`);
+    } catch (err) {
+      console.log('Note: Could not alter users table (status). Column may already exist.');
+    }
+    
+    try {
+      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login TIMESTAMP;`);
+    } catch (err) {
+      console.log('Note: Could not alter users table (last_login). Column may already exist.');
+    }
+  } catch (error) {
+    console.error('Error initializing users table:', error.message);
+  }
 };
 
 const User = {
@@ -37,7 +71,7 @@ const User = {
 
   async findById(id) {
     const result = await pool.query(
-      'SELECT id, name, email, created_at FROM users WHERE id = $1 LIMIT 1',
+      'SELECT id, name, email, role, phone_number, status, last_login, created_at FROM users WHERE id = $1 LIMIT 1',
       [id]
     );
     return result.rows[0];
@@ -45,9 +79,32 @@ const User = {
 
   async all() {
     const result = await pool.query(
-      'SELECT id, name, email, created_at FROM users ORDER BY created_at DESC'
+      'SELECT id, name, email, role, phone_number, status, last_login, created_at FROM users ORDER BY created_at DESC'
     );
     return result.rows;
+  },
+
+  async updateLastLogin(id) {
+    await pool.query(
+      'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = $1',
+      [id]
+    );
+  },
+
+  async updateStatus(id, status) {
+    const result = await pool.query(
+      'UPDATE users SET status = $1 WHERE id = $2 RETURNING id, name, email, role, status',
+      [status, id]
+    );
+    return result.rows[0];
+  },
+
+  async updateRole(id, role) {
+    const result = await pool.query(
+      'UPDATE users SET role = $1 WHERE id = $2 RETURNING id, name, email, role',
+      [role, id]
+    );
+    return result.rows[0];
   },
 
   async update(id, { name, email, password }) {

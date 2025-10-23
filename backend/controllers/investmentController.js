@@ -2,6 +2,8 @@
 const Investment = require('../models/Investment');
 const InvestmentPlan = require('../models/InvestmentPlan');
 
+const PendingInvestment = require('../models/PendingInvestment');
+
 const investmentController = {
   // Get all investment plans
   async getPlans(req, res) {
@@ -14,10 +16,10 @@ const investmentController = {
     }
   },
 
-  // Create new investment
-  async createInvestment(req, res) {
+  // Create pending investment (before payment)
+  async createPendingInvestment(req, res) {
     try {
-      const { plan_id, amount } = req.body;
+      const { plan_id, amount, phone_number, checkout_request_id } = req.body;
       const user_id = req.user.id;
 
       const plan = await InvestmentPlan.findById(plan_id);
@@ -27,7 +29,48 @@ const investmentController = {
 
       if (amount < plan.min_amount || amount > plan.max_amount) {
         return res.status(400).json({ 
-          error: `Amount must be between $${plan.min_amount} and $${plan.max_amount}` 
+          error: `Amount must be between KSh ${plan.min_amount} and KSh ${plan.max_amount}` 
+        });
+      }
+
+      const pendingInvestment = await PendingInvestment.create({
+        user_id,
+        plan_id: plan.id,
+        plan_name: plan.name,
+        amount: parseFloat(amount),
+        daily_return_rate: plan.daily_return_rate,
+        duration_days: plan.duration_days,
+        phone_number,
+        checkout_request_id
+      });
+
+      console.log(`⏳ Pending investment created: ${checkout_request_id}`);
+      res.status(201).json(pendingInvestment);
+    } catch (error) {
+      console.error('Create pending investment error:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  },
+
+  // Create new investment (only after payment confirmation)
+  async createInvestment(req, res) {
+    try {
+      const { plan_id, amount, checkout_request_id } = req.body;
+      const user_id = req.user.id;
+
+      // Validate that this is from a confirmed payment
+      if (!checkout_request_id) {
+        return res.status(400).json({ error: 'Payment confirmation required' });
+      }
+
+      const plan = await InvestmentPlan.findById(plan_id);
+      if (!plan) {
+        return res.status(404).json({ error: 'Investment plan not found' });
+      }
+
+      if (amount < plan.min_amount || amount > plan.max_amount) {
+        return res.status(400).json({ 
+          error: `Amount must be between KSh ${plan.min_amount} and KSh ${plan.max_amount}` 
         });
       }
 
@@ -39,9 +82,10 @@ const investmentController = {
         duration_days: plan.duration_days
       });
 
+      console.log(`✅ Investment created for user ${user_id}: KSh ${amount} in ${plan.name}`);
       res.status(201).json(investment);
     } catch (error) {
-      console.error(error);
+      console.error('Create investment error:', error);
       res.status(500).json({ error: 'Server error' });
     }
   },
@@ -50,7 +94,10 @@ const investmentController = {
   async getUserInvestments(req, res) {
     try {
       const user_id = req.user.id;
+      console.log('Getting investments for user:', user_id);
+      
       const investments = await Investment.findByUserId(user_id);
+      console.log('Found investments:', investments.length);
       
       // Calculate current returns for each investment
       const investmentsWithReturns = investments.map(inv => {
@@ -69,7 +116,8 @@ const investmentController = {
 
       res.json(investmentsWithReturns);
     } catch (error) {
-      console.error(error);
+      console.error('Get investments error:', error.message);
+      console.error('Stack trace:', error.stack);
       res.status(500).json({ error: 'Server error' });
     }
   },
@@ -78,8 +126,13 @@ const investmentController = {
   async getDashboardStats(req, res) {
     try {
       const user_id = req.user.id;
+      console.log('Getting dashboard stats for user:', user_id);
+      
       const stats = await Investment.getUserStats(user_id);
+      console.log('Raw stats:', stats);
+      
       const investments = await Investment.findByUserId(user_id);
+      console.log('User investments:', investments.length);
 
       // Calculate total current returns
       let totalCurrentReturns = 0;
@@ -89,16 +142,22 @@ const investmentController = {
         totalCurrentReturns += currentReturn;
       });
 
+      // Handle case where user has no investments
       const dashboardData = {
-        ...stats,
+        total_investments: stats?.total_investments || '0',
+        total_invested: stats?.total_invested || '0.00',
+        total_returns: stats?.total_returns || '0.00',
+        portfolio_value: stats?.portfolio_value || '0.00',
         total_current_returns: totalCurrentReturns.toFixed(2),
-        current_portfolio_value: (parseFloat(stats.total_invested) + totalCurrentReturns).toFixed(2),
+        current_portfolio_value: (parseFloat(stats?.total_invested || '0') + totalCurrentReturns).toFixed(2),
         active_investments: investments.filter(inv => inv.status === 'active').length
       };
 
+      console.log('Final dashboard data:', dashboardData);
       res.json(dashboardData);
     } catch (error) {
-      console.error(error);
+      console.error('Dashboard stats error:', error.message);
+      console.error('Stack trace:', error.stack);
       res.status(500).json({ error: 'Server error' });
     }
   },

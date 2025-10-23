@@ -10,6 +10,7 @@ const router = express.Router();
 // Authentication routes
 router.post('/register', userController.register);
 router.post('/login', userController.login);
+router.get('/profile', auth, userController.getProfile);
 
 // CRUD routes
 router.get('/', userController.getAllUsers);

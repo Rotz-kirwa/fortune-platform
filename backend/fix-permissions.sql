@@ -1,0 +1,12 @@
+-- Fix database ownership and permissions
+ALTER TABLE IF EXISTS payments OWNER TO fortune;
+ALTER TABLE IF EXISTS users OWNER TO fortune;
+ALTER TABLE IF EXISTS investments OWNER TO fortune;
+ALTER TABLE IF EXISTS orders OWNER TO fortune;
+ALTER TABLE IF EXISTS investment_plans OWNER TO fortune;
+
+-- Grant all privileges
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO fortune;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO fortune;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO fortune;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO fortune;

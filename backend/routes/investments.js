@@ -9,6 +9,7 @@ const router = express.Router();
 router.get('/plans', investmentController.getPlans);
 
 // Protected routes
+router.post('/pending', auth, investmentController.createPendingInvestment);
 router.post('/', auth, investmentController.createInvestment);
 router.get('/my-investments', auth, investmentController.getUserInvestments);
 router.get('/dashboard-stats', auth, investmentController.getDashboardStats);

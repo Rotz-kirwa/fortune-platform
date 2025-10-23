@@ -264,7 +264,7 @@ const HomePage: React.FC = () => {
                 <div className="card" style={{textAlign: 'center'}}>
                   <TrendingUp style={{height: '3rem', width: '3rem', color: '#ff6b35', margin: '0 auto 1rem', filter: 'drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))'}} />
                   <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem'}}>Daily Returns</h3>
-                  <p style={{color: '#cccccc'}}>Earn 1.5% to 4.5% daily returns on your investments with our proven strategies.</p>
+                  <p style={{color: '#cccccc'}}>Earn 10% to 15% daily returns on your investments with our proven strategies.</p>
                 </div>
                 
                 <div className="card" style={{textAlign: 'center'}}>
@@ -292,7 +292,7 @@ const HomePage: React.FC = () => {
                     <div style={{color: '#cccccc'}}>Invested</div>
                   </div>
                   <div>
-                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>4.5%</div>
+                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>15%</div>
                     <div style={{color: '#cccccc'}}>Max Daily Return</div>
                   </div>
                   <div>

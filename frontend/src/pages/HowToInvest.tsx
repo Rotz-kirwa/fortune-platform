@@ -67,28 +67,38 @@ const HowToInvest: React.FC = () => {
                   Step 2: Choose Investment Plan
                 </h3>
                 <p style={{color: '#cccccc', fontSize: '1.1rem', marginBottom: '1rem'}}>
-                  Select from our 4 investment plans based on your budget. Start from as low as KSh 13,000.
+                  Select from our 6 investment plans based on your budget. Start from as low as KSh 50.
                 </p>
                 <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem', marginTop: '1rem'}}>
                   <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(255, 107, 53, 0.1)', borderRadius: '0.5rem'}}>
                     <div style={{color: '#ff6b35', fontWeight: 'bold'}}>Starter</div>
-                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 13K-130K</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>1.5% daily</div>
+                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 50-500</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>10% daily</div>
                   </div>
                   <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '0.5rem'}}>
                     <div style={{color: '#10b981', fontWeight: 'bold'}}>Growth</div>
-                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 130K-650K</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>2.5% daily</div>
+                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 501-1K</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>11% daily</div>
                   </div>
                   <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '0.5rem'}}>
                     <div style={{color: '#3b82f6', fontWeight: 'bold'}}>Premium</div>
-                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 650K-2.6M</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>3.5% daily</div>
+                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 1K-10K</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>12% daily</div>
                   </div>
                   <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '0.5rem'}}>
                     <div style={{color: '#f59e0b', fontWeight: 'bold'}}>VIP</div>
-                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 2.6M-13M</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>4.5% daily</div>
+                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 10K-50K</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>13% daily</div>
+                  </div>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(168, 85, 247, 0.1)', borderRadius: '0.5rem'}}>
+                    <div style={{color: '#a855f7', fontWeight: 'bold'}}>VVIP</div>
+                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 50K-100K</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>14% daily</div>
+                  </div>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(251, 191, 36, 0.1)', borderRadius: '0.5rem'}}>
+                    <div style={{color: '#fbbf24', fontWeight: 'bold'}}>Gold</div>
+                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 100K-1M</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>15% daily</div>
                   </div>
                 </div>
               </div>
@@ -189,20 +199,20 @@ const HowToInvest: React.FC = () => {
               Investment Example
             </h3>
             <p style={{color: '#cccccc', marginBottom: '2rem'}}>
-              See how much you can earn with our Growth Plan
+              See how much you can earn with our Premium Plan
             </p>
             <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem'}}>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '0.5rem'}}>KSh 130,000</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '0.5rem'}}>KSh 10,000</div>
                 <div style={{color: '#cccccc'}}>Initial Investment</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 3,250/day</div>
-                <div style={{color: '#cccccc'}}>Daily Profit (2.5%)</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 1,200/day</div>
+                <div style={{color: '#cccccc'}}>Daily Profit (12%)</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 276,250</div>
-                <div style={{color: '#cccccc'}}>Total After 45 Days</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 118,000</div>
+                <div style={{color: '#cccccc'}}>Total After 90 Days</div>
               </div>
             </div>
           </div>

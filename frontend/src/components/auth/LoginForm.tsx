@@ -18,13 +18,45 @@ const LoginForm: React.FC = () => {
     setLoading(true);
     setError('');
 
+    // Client-side validation
+    if (!formData.email || !formData.password) {
+      setError('Please fill in all fields');
+      setLoading(false);
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setError('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await authAPI.login(formData);
+      const response = await authAPI.login({
+        email: formData.email.toLowerCase().trim(),
+        password: formData.password
+      });
+      
       const { user, token } = response.data;
+      
+      if (!user || !token) {
+        throw new Error('Invalid response from server');
+      }
+      
       login(user, token);
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Login failed');
+      console.error('Login error:', err);
+      
+      if (err.code === 'ERR_NETWORK') {
+        setError('Cannot connect to server. Please check your connection.');
+      } else if (err.response?.status === 401) {
+        setError('Invalid email or password');
+      } else if (err.response?.status === 403) {
+        setError('Account suspended. Contact support.');
+      } else {
+        setError(err.response?.data?.error || 'Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

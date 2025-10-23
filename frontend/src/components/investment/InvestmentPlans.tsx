@@ -45,19 +45,10 @@ const InvestmentPlans: React.FC<InvestmentPlansProps> = ({ onClose, onInvestment
   };
 
   const handleMpesaSuccess = async () => {
-    if (!selectedPlan || !amount) return;
-
-    try {
-      await investmentAPI.createInvestment({
-        plan_id: selectedPlan.id,
-        amount: parseFloat(amount)
-      });
-      setShowMpesa(false);
-      onInvestmentCreated();
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Investment failed');
-      setShowMpesa(false);
-    }
+    // Just close the modal and refresh dashboard
+    // Investment will be created automatically when M-PESA confirms payment
+    setShowMpesa(false);
+    onInvestmentCreated();
   };
 
   const calculateReturns = (plan: Plan, investAmount: number) => {

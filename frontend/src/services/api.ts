@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:4000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -48,7 +48,9 @@ export const paymentsAPI = {
 // Investment API
 export const investmentAPI = {
   getPlans: () => api.get('/investments/plans'),
-  createInvestment: (data: { plan_id: number; amount: number }) =>
+  createPendingInvestment: (data: { plan_id: number; amount: number; phone_number: string; checkout_request_id: string }) =>
+    api.post('/investments/pending', data),
+  createInvestment: (data: { plan_id: number; amount: number; checkout_request_id: string }) =>
     api.post('/investments', data),
   getMyInvestments: () => api.get('/investments/my-investments'),
   getDashboardStats: () => api.get('/investments/dashboard-stats'),

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Smartphone, CheckCircle } from 'lucide-react';
+import { X, Smartphone, CheckCircle, AlertCircle } from 'lucide-react';
+import { paymentsAPI, investmentAPI } from '../../services/api';
 
 interface MpesaDepositProps {
   plan: {
@@ -14,26 +15,78 @@ interface MpesaDepositProps {
 }
 
 const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSuccess }) => {
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('254791260817'); // Pre-filled with your number
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1); // 1: Enter phone, 2: Processing, 3: Success
+  const [step, setStep] = useState(1); // 1: Enter phone, 2: Processing, 3: Success, 4: Error
+  const [error, setError] = useState('');
 
   const handleMpesaPayment = async () => {
     if (!phoneNumber) return;
     
     setLoading(true);
     setStep(2);
+    setError('');
     
-    // Simulate M-PESA STK push
-    setTimeout(() => {
-      setStep(3);
-      setLoading(false);
+    try {
+      // Validate phone number format
+      const cleanPhone = phoneNumber.replace(/\D/g, '');
+      if (!cleanPhone.startsWith('254') || cleanPhone.length !== 12) {
+        setError('Phone number must be in format 254XXXXXXXXX');
+        setStep(4);
+        setLoading(false);
+        return;
+      }
+
+      // Make real M-PESA STK Push API call
+      const response = await paymentsAPI.stkPush({
+        amount: amount,
+        phoneNumber: cleanPhone,
+        accountReference: `INV-${plan.id}-${Date.now()}`
+      });
       
-      // Auto close and trigger success after 3 seconds
-      setTimeout(() => {
-        onSuccess();
-      }, 3000);
-    }, 3000);
+      console.log('M-PESA STK Push response:', response.data);
+      
+      if (response.data.ResponseCode === '0') {
+        const checkoutRequestId = response.data.CheckoutRequestID;
+        
+        // Create pending investment
+        await investmentAPI.createPendingInvestment({
+          plan_id: plan.id,
+          amount: amount,
+          phone_number: cleanPhone,
+          checkout_request_id: checkoutRequestId
+        });
+        
+        // STK Push sent successfully - show waiting message
+        setStep(3);
+        
+        // Don't auto-close - wait for user to complete payment
+        // The investment will only be created when M-PESA confirms payment
+      } else {
+        // STK Push failed
+        const errorMsg = response.data.ResponseDescription || response.data.errorMessage || 'Payment request failed';
+        setError(errorMsg);
+        setStep(4);
+      }
+      
+    } catch (err: any) {
+      console.error('M-PESA payment error:', err);
+      
+      let errorMessage = 'Payment failed. Please try again.';
+      
+      if (err.code === 'ERR_NETWORK') {
+        errorMessage = 'Network error. Please check your connection and try again.';
+      } else if (err.response?.status === 500) {
+        errorMessage = err.response?.data?.details || 'Server error. Please try again later.';
+      } else if (err.response?.data?.error) {
+        errorMessage = err.response.data.error;
+      }
+      
+      setError(errorMessage);
+      setStep(4);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const dailyReturn = amount * parseFloat(plan.daily_return_rate);
@@ -126,34 +179,78 @@ const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSu
                 animation: 'spin 1s linear infinite',
                 margin: '0 auto 2rem'
               }}></div>
-              <h3 style={{color: '#ffffff', fontSize: '1.3rem', marginBottom: '1rem'}}>Processing Payment...</h3>
+              <h3 style={{color: '#ffffff', fontSize: '1.3rem', marginBottom: '1rem'}}>Sending M-PESA Prompt...</h3>
               <p style={{color: '#cccccc', marginBottom: '1rem'}}>
-                Check your phone for M-PESA prompt
+                Please wait while we send the payment request
               </p>
               <p style={{color: '#10b981', fontSize: '0.9rem'}}>
-                📱 Enter your M-PESA PIN to complete payment
+                📱 Check your phone ({phoneNumber}) for M-PESA prompt
               </p>
             </div>
           )}
 
           {step === 3 && (
             <div style={{textAlign: 'center', padding: '2rem 0'}}>
-              <CheckCircle style={{height: '4rem', width: '4rem', color: '#10b981', margin: '0 auto 2rem'}} />
-              <h3 style={{color: '#10b981', fontSize: '1.5rem', marginBottom: '1rem'}}>Payment Successful! 🎉</h3>
+              <div style={{
+                width: '4rem', 
+                height: '4rem', 
+                border: '4px solid rgba(16, 185, 129, 0.3)', 
+                borderTop: '4px solid #10b981', 
+                borderRadius: '50%', 
+                animation: 'spin 1s linear infinite',
+                margin: '0 auto 2rem'
+              }}></div>
+              <h3 style={{color: '#10b981', fontSize: '1.5rem', marginBottom: '1rem'}}>M-PESA Prompt Sent! 📱</h3>
               <p style={{color: '#cccccc', marginBottom: '1rem'}}>
-                Your investment has been activated
+                Check your phone and enter your M-PESA PIN to complete payment
               </p>
               <div style={{background: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1rem'}}>
                 <p style={{color: '#10b981', fontWeight: 'bold'}}>
-                  {plan.name} - KSh {amount.toLocaleString()}
+                  Amount: KSh {amount.toLocaleString()}
                 </p>
                 <p style={{color: '#cccccc', fontSize: '0.9rem'}}>
-                  Daily profits start tomorrow!
+                  Phone: {phoneNumber}
                 </p>
               </div>
-              <p style={{color: '#999', fontSize: '0.8rem'}}>
-                Redirecting to dashboard...
+              <p style={{color: '#f59e0b', fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '1rem'}}>
+                ⚠️ Your investment will only be activated after successful payment
               </p>
+              <p style={{color: '#999', fontSize: '0.8rem'}}>
+                You can close this window. Check your dashboard in a few minutes.
+              </p>
+              <button
+                onClick={() => { onSuccess(); }}
+                className="btn-primary"
+                style={{marginTop: '1rem'}}
+              >
+                Close & Check Dashboard
+              </button>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div style={{textAlign: 'center', padding: '2rem 0'}}>
+              <AlertCircle style={{height: '4rem', width: '4rem', color: '#ef4444', margin: '0 auto 2rem'}} />
+              <h3 style={{color: '#ef4444', fontSize: '1.5rem', marginBottom: '1rem'}}>Payment Failed</h3>
+              <p style={{color: '#cccccc', marginBottom: '2rem'}}>
+                {error}
+              </p>
+              <div style={{display: 'flex', gap: '1rem'}}>
+                <button
+                  onClick={() => { setStep(1); setError(''); }}
+                  className="btn-secondary"
+                  style={{flex: 1}}
+                >
+                  Try Again
+                </button>
+                <button
+                  onClick={onClose}
+                  className="btn-primary"
+                  style={{flex: 1}}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           )}
 
