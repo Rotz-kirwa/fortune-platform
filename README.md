@@ -162,3 +162,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ---
 
 **Built with ❤️ for the Kenyan investment community**# classic
+# fortune-investment-platform
