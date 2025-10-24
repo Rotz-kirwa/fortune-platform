@@ -1,0 +1,8 @@
+[providers]
+node = "18"
+
+[build]
+cmds = ["npm install"]
+
+[start]
+cmd = "npm start"
