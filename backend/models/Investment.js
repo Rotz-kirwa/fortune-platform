@@ -1,23 +1,7 @@
 // models/Investment.js
 const pool = require('../config/db');
 
-// Create Investments table if not exists
-const initInvestmentTable = async () => {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS investments (
-      id SERIAL PRIMARY KEY,
-      user_id INT REFERENCES users(id) ON DELETE CASCADE,
-      plan_name VARCHAR(100) NOT NULL,
-      amount NUMERIC(10,2) NOT NULL,
-      daily_return_rate NUMERIC(5,4) NOT NULL,
-      duration_days INT NOT NULL,
-      total_return NUMERIC(10,2) DEFAULT 0,
-      status VARCHAR(20) DEFAULT 'active',
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      maturity_date TIMESTAMP
-    )
-  `);
-};
+
 
 const Investment = {
   async create({ user_id, plan_name, amount, daily_return_rate, duration_days }) {
@@ -67,6 +51,6 @@ const Investment = {
   }
 };
 
-initInvestmentTable();
+
 
 module.exports = Investment;

@@ -1,26 +1,6 @@
 // models/Payment.js
 const pool = require('../config/db');
 
-// Check if payments table exists (don't create in production)
-const initPaymentTable = async () => {
-  try {
-    const result = await pool.query(`
-      SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_name = 'payments'
-      )
-    `);
-    
-    if (result.rows[0].exists) {
-      console.log('✅ Payments table exists');
-    } else {
-      console.log('❌ Payments table missing - contact admin to create it');
-    }
-  } catch (error) {
-    console.error('❌ Error checking payments table:', error.message);
-  }
-};
-
 const Payment = {
   async create({ order_id, user_id, investment_id, amount, method, phone_number, mpesa_transaction_id }) {
     const result = await pool.query(
@@ -68,9 +48,6 @@ const Payment = {
   }
 };
 
-// Only check table in production, don't create
-if (process.env.NODE_ENV !== 'production') {
-  initPaymentTable();
-}
+
 
 module.exports = Payment;

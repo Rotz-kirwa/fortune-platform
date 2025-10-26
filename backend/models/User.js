@@ -2,52 +2,7 @@
 const pool = require('../config/db');
 const bcrypt = require('bcryptjs');
 
-// Create Users table if not exists
-const initUserTable = async () => {
-  try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        role VARCHAR(20) DEFAULT 'user',
-        phone_number VARCHAR(15),
-        status VARCHAR(20) DEFAULT 'active',
-        last_login TIMESTAMP,
-        created_at TIMESTAMP DEFAULT now()
-      )
-    `);
-    
-    // Try to add columns if they don't exist (for existing databases)
-    // Wrap in try-catch in case of permission issues
-    try {
-      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'user';`);
-    } catch (err) {
-      console.log('Note: Could not alter users table (role). Column may already exist.');
-    }
-    
-    try {
-      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_number VARCHAR(15);`);
-    } catch (err) {
-      console.log('Note: Could not alter users table (phone_number). Column may already exist.');
-    }
-    
-    try {
-      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'active';`);
-    } catch (err) {
-      console.log('Note: Could not alter users table (status). Column may already exist.');
-    }
-    
-    try {
-      await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login TIMESTAMP;`);
-    } catch (err) {
-      console.log('Note: Could not alter users table (last_login). Column may already exist.');
-    }
-  } catch (error) {
-    console.error('Error initializing users table:', error.message);
-  }
-};
+
 
 const User = {
   async create({ name, email, password }) {
@@ -148,6 +103,6 @@ const User = {
   }
 };
 
-initUserTable();
+
 
 module.exports = User;
