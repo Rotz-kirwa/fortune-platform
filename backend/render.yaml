@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: fortune-investment-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MPESA_CONSUMER_KEY
+        value: VvpMBSUKLtlPuDGFCC3n5eZt3DM140fSngYrDr9I07NAn6OJ
+      - key: MPESA_SHORTCODE
+        value: "4185659"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fortune-db
+          property: connectionString
+
+databases:
+  - name: fortune-db
+    plan: free
