@@ -51,6 +51,7 @@ app.get('/api/health', (req, res) => {
 // app routes
 app.use('/api/orders', ordersRouter);
 app.use('/api/payments', paymentsRouter);
+app.use('/api/pay', paymentsRouter); // Add /api/pay route for frontend compatibility
 app.use('/api/users', userRouter);
 app.use('/api/investments', investmentRouter);
 
