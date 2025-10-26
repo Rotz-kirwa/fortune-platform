@@ -107,7 +107,7 @@ const LoginForm: React.FC = () => {
             
             <div>
               <label htmlFor="password" style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#cccccc'}}>
-                Password
+                4-Digit PIN
               </label>
               <div style={{marginTop: '0.25rem', position: 'relative'}}>
                 <Lock style={{position: 'absolute', left: '0.75rem', top: '0.75rem', height: '1.25rem', width: '1.25rem', color: '#9ca3af'}} />
@@ -118,7 +118,7 @@ const LoginForm: React.FC = () => {
                   required
                   className="form-input"
                   style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}
-                  placeholder="Enter your password"
+                  placeholder="Enter your 4-digit PIN"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />

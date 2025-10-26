@@ -18,6 +18,12 @@ const RegisterForm: React.FC = () => {
     setLoading(true);
     setError('');
 
+    if (!/^\d{4}$/.test(formData.password)) {
+      setError('Password must be exactly 4 digits');
+      setLoading(false);
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
@@ -113,7 +119,7 @@ const RegisterForm: React.FC = () => {
               
               <div>
                 <label htmlFor="password" style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#cccccc', marginBottom: '0.5rem'}}>
-                  Password
+                  4-Digit PIN
                 </label>
                 <div style={{position: 'relative'}}>
                   <Lock style={{position: 'absolute', left: '0.75rem', top: '0.75rem', height: '1.25rem', width: '1.25rem', color: '#ff6b35', zIndex: 10}} />
@@ -124,7 +130,7 @@ const RegisterForm: React.FC = () => {
                     required
                     className="form-input"
                     style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}
-                    placeholder="Create a strong password"
+                    placeholder="Enter 4-digit PIN"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   />
@@ -140,7 +146,7 @@ const RegisterForm: React.FC = () => {
               
               <div>
                 <label htmlFor="confirmPassword" style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#cccccc', marginBottom: '0.5rem'}}>
-                  Confirm Password
+                  Confirm PIN
                 </label>
                 <div style={{position: 'relative'}}>
                   <Lock style={{position: 'absolute', left: '0.75rem', top: '0.75rem', height: '1.25rem', width: '1.25rem', color: '#ff6b35', zIndex: 10}} />
@@ -151,7 +157,7 @@ const RegisterForm: React.FC = () => {
                     required
                     className="form-input"
                     style={{paddingLeft: '2.5rem'}}
-                    placeholder="Confirm your password"
+                    placeholder="Confirm 4-digit PIN"
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   />

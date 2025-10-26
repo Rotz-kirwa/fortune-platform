@@ -50,9 +50,13 @@ app.get('/api/health', (req, res) => {
 
 // app routes
 app.use('/api/orders', ordersRouter);
-app.use('/api/pay', paymentsRouter);
+app.use('/api/payments', paymentsRouter);
 app.use('/api/users', userRouter);
 app.use('/api/investments', investmentRouter);
+
+// Test environment endpoint
+const testEnvRouter = require('./routes/test-env');
+app.use('/api/payments', testEnvRouter);
 
 // 404 handler
 app.use('*', (req, res) => {
