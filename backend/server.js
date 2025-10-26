@@ -21,6 +21,7 @@ app.use(cors({
     'http://localhost:3000', 
     'http://127.0.0.1:3000',
     'https://fortune-platform-two.vercel.app',
+    'https://fortune-platform-git-main-eliuds-projects-ebf8c589.vercel.app',
     'https://fortune-platform-1.onrender.com'
   ],
   credentials: true,
