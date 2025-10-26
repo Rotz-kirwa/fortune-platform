@@ -17,7 +17,7 @@ interface MpesaDepositProps {
 
 const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSuccess }) => {
   const { user } = useAuth();
-  const [phoneNumber, setPhoneNumber] = useState('254791260817'); // Pre-filled with your number
+  const [phoneNumber, setPhoneNumber] = useState('254712345678'); // Demo number for showcasing
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1); // 1: Enter phone, 2: Processing, 3: Success, 4: Error
   const [error, setError] = useState('');
