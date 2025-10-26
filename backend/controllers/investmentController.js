@@ -19,8 +19,10 @@ const investmentController = {
   // Create pending investment (before payment)
   async createPendingInvestment(req, res) {
     try {
-      const { plan_id, amount, phone_number, checkout_request_id } = req.body;
-      const user_id = req.user.id;
+      const { plan_id, amount, phone_number, checkout_request_id, user_id } = req.body;
+      
+      // If no user_id provided, use a default or create anonymous pending investment
+      const actualUserId = user_id || null;
 
       const plan = await InvestmentPlan.findById(plan_id);
       if (!plan) {
@@ -34,7 +36,7 @@ const investmentController = {
       }
 
       const pendingInvestment = await PendingInvestment.create({
-        user_id,
+        user_id: actualUserId,
         plan_id: plan.id,
         plan_name: plan.name,
         amount: parseFloat(amount),

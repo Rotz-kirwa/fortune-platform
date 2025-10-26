@@ -1,30 +1,7 @@
 // models/PendingInvestment.js
 const pool = require('../config/db');
 
-// Create pending_investments table
-const initPendingInvestmentTable = async () => {
-  try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS pending_investments (
-        id SERIAL PRIMARY KEY,
-        user_id INT REFERENCES users(id) ON DELETE CASCADE,
-        plan_id INT NOT NULL,
-        plan_name VARCHAR(100) NOT NULL,
-        amount NUMERIC(10,2) NOT NULL,
-        daily_return_rate NUMERIC(5,4) NOT NULL,
-        duration_days INT NOT NULL,
-        phone_number VARCHAR(15) NOT NULL,
-        checkout_request_id VARCHAR(100) UNIQUE NOT NULL,
-        status VARCHAR(20) DEFAULT 'pending',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL '10 minutes')
-      )
-    `);
-    console.log('✅ Pending investments table ready');
-  } catch (error) {
-    console.error('❌ Error initializing pending_investments table:', error.message);
-  }
-};
+
 
 const PendingInvestment = {
   async create({ user_id, plan_id, plan_name, amount, daily_return_rate, duration_days, phone_number, checkout_request_id }) {
@@ -70,6 +47,6 @@ const PendingInvestment = {
   }
 };
 
-initPendingInvestmentTable();
+
 
 module.exports = PendingInvestment;

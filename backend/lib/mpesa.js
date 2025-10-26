@@ -94,4 +94,4 @@ async function initiateStkPush({ amount, phoneNumber, accountReference = 'Invest
   }
 }
 
-module.exports = { initiateStkPush };
+module.exports = { initiateStkPush, getToken };

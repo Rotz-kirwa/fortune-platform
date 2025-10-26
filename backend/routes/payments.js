@@ -165,4 +165,28 @@ router.post('/validation', (req, res) => {
   res.status(200).json({ ResultCode: 0, ResultDesc: 'Accepted' });
 });
 
+// Test M-PESA credentials endpoint
+router.get('/test-credentials', async (req, res) => {
+  try {
+    const { getToken } = require('../lib/mpesa');
+    const token = await getToken();
+    res.json({ 
+      success: true, 
+      message: 'M-PESA credentials are valid',
+      tokenLength: token.length,
+      env: process.env.MPESA_ENV,
+      consumerKey: process.env.MPESA_CONSUMER_KEY?.substring(0, 10) + '...',
+      shortcode: process.env.MPESA_SHORTCODE
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error.message,
+      env: process.env.MPESA_ENV,
+      consumerKey: process.env.MPESA_CONSUMER_KEY?.substring(0, 10) + '...',
+      shortcode: process.env.MPESA_SHORTCODE
+    });
+  }
+});
+
 module.exports = router;
