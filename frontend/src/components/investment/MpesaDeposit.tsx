@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Smartphone, CheckCircle, AlertCircle } from 'lucide-react';
 import { paymentsAPI, investmentAPI } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 interface MpesaDepositProps {
   plan: {
@@ -15,6 +16,7 @@ interface MpesaDepositProps {
 }
 
 const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSuccess }) => {
+  const { user } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState('254791260817'); // Pre-filled with your number
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1); // 1: Enter phone, 2: Processing, 3: Success, 4: Error
@@ -54,7 +56,8 @@ const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSu
           plan_id: plan.id,
           amount: amount,
           phone_number: cleanPhone,
-          checkout_request_id: checkoutRequestId
+          checkout_request_id: checkoutRequestId,
+          user_id: user?.id || null
         });
         
         // STK Push sent successfully - show waiting message

@@ -48,7 +48,7 @@ export const paymentsAPI = {
 // Investment API
 export const investmentAPI = {
   getPlans: () => api.get('/investments/plans'),
-  createPendingInvestment: (data: { plan_id: number; amount: number; phone_number: string; checkout_request_id: string }) =>
+  createPendingInvestment: (data: { plan_id: number; amount: number; phone_number: string; checkout_request_id: string; user_id?: number | null }) =>
     api.post('/investments/pending', data),
   createInvestment: (data: { plan_id: number; amount: number; checkout_request_id: string }) =>
     api.post('/investments', data),
