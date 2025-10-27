@@ -168,6 +168,41 @@ const HomePage: React.FC = () => {
               </div>
             </div>
 
+            {/* Withdrawal Button */}
+            <div style={{textAlign: 'center', marginBottom: '1.5rem'}}>
+              <button
+                onClick={async () => {
+                  try {
+                    const response = await fetch('/api/payments/withdraw', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ amount: 1000 })
+                    });
+                    const data = await response.json();
+                    if (data.error) {
+                      alert(data.error + (data.message ? '\n\n' + data.message : ''));
+                    } else {
+                      alert(data.message || 'Withdrawal request submitted!');
+                    }
+                  } catch (error) {
+                    alert('Network error. Please try again.');
+                  }
+                }}
+                className="btn-primary"
+                style={{
+                  fontSize: '1.1rem',
+                  padding: '1rem 2rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  margin: '0 auto'
+                }}
+              >
+                <DollarSign style={{height: '1.25rem', width: '1.25rem'}} />
+                Request Withdrawal
+              </button>
+            </div>
+
             {/* Active Investments */}
             <div className="card">
               <h2 style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '1.5rem'}}>
