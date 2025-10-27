@@ -1,21 +1,24 @@
-// Test M-PESA credentials
+// Quick M-PESA test
 require('dotenv').config();
-const { getToken } = require('./lib/mpesa');
+const { initiateStkPush } = require('./lib/mpesa');
 
-async function testCredentials() {
-  console.log('🔧 Testing M-PESA Credentials...');
-  console.log('Environment:', process.env.MPESA_ENV);
-  console.log('Consumer Key:', process.env.MPESA_CONSUMER_KEY?.substring(0, 10) + '...');
-  console.log('Consumer Secret:', process.env.MPESA_CONSUMER_SECRET?.substring(0, 10) + '...');
-  console.log('Shortcode:', process.env.MPESA_SHORTCODE);
+async function testMpesa() {
+  console.log('🧪 Testing M-PESA...');
   
   try {
-    const token = await getToken();
-    console.log('✅ SUCCESS: M-PESA credentials are valid');
-    console.log('Token length:', token.length);
+    const result = await initiateStkPush({
+      amount: 100,
+      phoneNumber: '254712345678',
+      accountReference: 'TEST'
+    });
+    
+    console.log('✅ M-PESA STK Push Success:');
+    console.log('Response Code:', result.ResponseCode);
+    console.log('Checkout Request ID:', result.CheckoutRequestID);
+    
   } catch (error) {
-    console.log('❌ FAILED:', error.message);
+    console.error('❌ M-PESA Failed:', error.message);
   }
 }
 
-testCredentials();
+testMpesa();
