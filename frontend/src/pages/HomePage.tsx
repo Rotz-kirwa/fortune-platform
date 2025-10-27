@@ -33,12 +33,35 @@ const HomePage: React.FC = () => {
   const [investments, setInvestments] = useState<Investment[]>([]);
   const [showPlans, setShowPlans] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [expectedReturns, setExpectedReturns] = useState('0.00');
 
   useEffect(() => {
     if (isAuthenticated) {
       fetchDashboardData();
     }
   }, [isAuthenticated]);
+
+  const calculateExpectedReturns = (investmentsList: Investment[]) => {
+    const total = investmentsList.reduce((sum, investment) => {
+      const principal = parseFloat(investment.amount);
+      const dailyRate = getDailyRate(investment.plan_name);
+      const totalReturn = principal * (1 + (dailyRate / 100) * 90);
+      return sum + totalReturn;
+    }, 0);
+    return total.toFixed(2);
+  };
+
+  const getDailyRate = (planName: string): number => {
+    const rates: {[key: string]: number} = {
+      'Bronze': 3.5,
+      'Silver': 4.0,
+      'Premium': 4.5,
+      'Platinum': 5.0,
+      'Diamond': 5.5,
+      'Gold': 6.0
+    };
+    return rates[planName] || 3.5;
+  };
 
   const fetchDashboardData = async () => {
     if (!isAuthenticated) return;
@@ -51,6 +74,7 @@ const HomePage: React.FC = () => {
       ]);
       setStats(statsRes.data);
       setInvestments(investmentsRes.data);
+      setExpectedReturns(calculateExpectedReturns(investmentsRes.data));
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {
@@ -264,9 +288,10 @@ const HomePage: React.FC = () => {
               <div className="card" style={{textAlign: 'center'}}>
                 <TrendingUp style={{height: '2.5rem', width: '2.5rem', color: '#10b981', margin: '0 auto 1rem', filter: 'drop-shadow(0 0 10px rgba(16, 185, 129, 0.5))'}} />
                 <h3 style={{fontSize: '1.4rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>
-                  KSh {stats?.total_current_returns || '0.00'}
+                  KSh {expectedReturns}
                 </h3>
-                <p style={{color: '#cccccc', fontSize: '0.85rem'}}>Total Returns</p>
+                <p style={{color: '#cccccc', fontSize: '0.85rem'}}>Expected Returns</p>
+                <p style={{color: '#999', fontSize: '0.7rem', marginTop: '0.25rem'}}>At 90-day maturity</p>
               </div>
 
               <div className="card" style={{textAlign: 'center'}}>
@@ -395,8 +420,14 @@ const HomePage: React.FC = () => {
                           <p style={{color: '#ffffff', fontWeight: '600'}}>{investment.days_passed}/{investment.duration_days}</p>
                         </div>
                         <div>
+                          <p style={{color: '#999'}}>Matures In</p>
+                          <p style={{color: '#f59e0b', fontWeight: '600'}}>{Math.max(0, 90 - investment.days_passed)} days</p>
+                        </div>
+                        <div>
                           <p style={{color: '#999'}}>Status</p>
-                          <p style={{color: '#10b981', fontWeight: '600'}}>Active</p>
+                          <p style={{color: investment.days_passed >= 90 ? '#10b981' : '#3b82f6', fontWeight: '600'}}>
+                            {investment.days_passed >= 90 ? 'Matured' : 'Active'}
+                          </p>
                         </div>
                       </div>
                     </div>

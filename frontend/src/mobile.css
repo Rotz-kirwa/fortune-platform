@@ -501,6 +501,47 @@
   }
 }
 
+/* M-PESA Phone Input Mobile Optimizations */
+@media (max-width: 768px) {
+  .mpesa-phone-input .mpesa-input {
+    padding-left: 5rem !important;
+    font-size: 1rem !important;
+    min-height: 50px !important;
+    letter-spacing: 0.03rem !important;
+  }
+  
+  .mpesa-phone-input div[style*="position: absolute"] {
+    left: 0.5rem !important;
+    padding: 0.2rem 0.4rem !important;
+  }
+  
+  .mpesa-phone-input div[style*="position: absolute"] span {
+    font-size: 0.85rem !important;
+  }
+  
+  .mpesa-phone-input div[style*="position: absolute"] svg {
+    height: 0.9rem !important;
+    width: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mpesa-phone-input .mpesa-input {
+    padding-left: 4.5rem !important;
+    font-size: 0.95rem !important;
+    min-height: 48px !important;
+  }
+  
+  .mpesa-phone-input div[style*="position: absolute"] {
+    left: 0.4rem !important;
+    padding: 0.15rem 0.3rem !important;
+  }
+  
+  .mpesa-phone-input div[style*="position: absolute"] span {
+    font-size: 0.8rem !important;
+  }
+}
+
 /* Registration Form Mobile Optimizations */
 @media (max-width: 768px) {
   .register-container {
@@ -539,25 +580,26 @@
   .register-form .form-input {
     padding: 0.875rem 0.75rem !important;
     font-size: 1rem !important;
-    min-height: 48px !important;
+    min-height: 50px !important;
     border-radius: 0.75rem !important;
   }
 
   .register-form input[name="password"],
   .register-form input[name="confirmPassword"] {
-    font-size: 1.125rem !important;
-    letter-spacing: 0.25rem !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.2rem !important;
     padding: 0.875rem 2.5rem !important;
   }
 
   .register-form label {
-    font-size: 0.8rem !important;
-    margin-bottom: 0.4rem !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 600 !important;
   }
 
   .register-form .error p,
   .register-form .form-group p {
-    font-size: 0.7rem !important;
+    font-size: 0.75rem !important;
   }
 
   .register-form button[type="submit"] {
@@ -565,6 +607,16 @@
     font-size: 0.95rem !important;
     min-height: 52px !important;
     border-radius: 0.75rem !important;
+  }
+  
+  /* Registration Form Icons */
+  .register-form .form-group svg {
+    height: 1.1rem !important;
+    width: 1.1rem !important;
+  }
+  
+  .register-form input {
+    padding-left: 2.3rem !important;
   }
 }
 
@@ -584,19 +636,33 @@
   .register-form .form-input {
     padding: 0.8rem 0.7rem !important;
     font-size: 0.95rem !important;
+    min-height: 48px !important;
   }
 
   .register-form input[name="password"],
   .register-form input[name="confirmPassword"] {
     font-size: 1rem !important;
-    letter-spacing: 0.2rem !important;
-    padding: 0.8rem 2.3rem !important;
+    letter-spacing: 0.15rem !important;
+    padding: 0.8rem 2.2rem !important;
   }
 
   .register-form button[type="submit"] {
     padding: 0.9rem 1.25rem !important;
     font-size: 0.9rem !important;
     min-height: 48px !important;
+  }
+  
+  .register-form label {
+    font-size: 0.8rem !important;
+  }
+  
+  .register-form .form-group svg {
+    height: 1rem !important;
+    width: 1rem !important;
+  }
+  
+  .register-form input {
+    padding-left: 2.1rem !important;
   }
 }
 
@@ -612,26 +678,42 @@
     outline: 2px solid #ffffff !important;
     outline-offset: 2px !important;
   }
+  
+  .mpesa-input:focus {
+    outline: 2px solid #10b981 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1) !important;
+    border-color: #10b981 !important;
+  }
 }
 
-/* Touch Improvements for Registration */
+/* Touch Improvements for Registration and M-PESA */
 @media (hover: none) and (pointer: coarse) {
   .register-form .form-input {
-    min-height: 48px !important;
+    min-height: 50px !important;
   }
 
   .register-form button {
-    min-height: 48px !important;
+    min-height: 50px !important;
   }
 
   .register-form button[type="button"] {
-    min-width: 44px !important;
-    min-height: 44px !important;
-    padding: 0.5rem !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+    padding: 0.6rem !important;
   }
 
   .register-form button[type="submit"]:active {
     transform: scale(0.98) !important;
+    transition: transform 0.1s !important;
+  }
+  
+  .mpesa-input {
+    min-height: 52px !important;
+  }
+  
+  .mpesa-input:active {
+    transform: scale(0.99) !important;
     transition: transform 0.1s !important;
   }
 }

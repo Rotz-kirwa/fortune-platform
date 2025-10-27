@@ -101,15 +101,17 @@ const ReferralSection: React.FC = () => {
       {/* Referral Link */}
       <div style={{marginBottom: '1rem'}}>
         <label style={{display: 'block', color: '#cccccc', marginBottom: '0.5rem', fontWeight: '500'}}>
-          Your Referral Link
+          🔗 Your Personal Referral Link
         </label>
-        <div style={{display: 'flex', gap: '0.5rem'}}>
+        <div style={{display: 'flex', gap: '0.5rem', marginBottom: '0.75rem'}}>
           <input
             type="text"
-            value={referralStats?.referral_link || `${window.location.origin}/register?ref=${user?.id}`}
+            value={referralStats?.referral_link || `${window.location.origin}/register?ref=${user?.email || user?.id}`}
             readOnly
             className="form-input"
-            style={{flex: 1, fontSize: '0.9rem', padding: '0.75rem'}}
+            style={{flex: 1, fontSize: '0.85rem', padding: '0.75rem', cursor: 'pointer'}}
+            onClick={copyToClipboard}
+            title="Click to copy"
           />
           <button
             onClick={copyToClipboard}
@@ -130,6 +132,36 @@ const ReferralSection: React.FC = () => {
             )}
           </button>
         </div>
+        
+        {/* Clickable Link */}
+        <div style={{marginBottom: '0.5rem'}}>
+          <a 
+            href={referralStats?.referral_link || `${window.location.origin}/register?ref=${user?.email || user?.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#ff6b35',
+              textDecoration: 'none',
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              borderBottom: '1px solid rgba(255, 107, 53, 0.3)',
+              paddingBottom: '1px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.25rem'
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              copyToClipboard();
+            }}
+          >
+            🔗 Click here to copy your unique referral link
+          </a>
+        </div>
+        
+        <p style={{color: '#999', fontSize: '0.75rem', fontStyle: 'italic'}}>
+          Share this link with friends to earn 5% commission on their investments
+        </p>
       </div>
 
       {/* How it works */}

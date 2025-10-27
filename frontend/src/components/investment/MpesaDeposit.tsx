@@ -134,13 +134,28 @@ const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSu
               </div>
 
               {/* Phone Number Input */}
-              <div style={{marginBottom: '2rem'}}>
-                <label style={{display: 'block', color: '#cccccc', marginBottom: '0.5rem', fontWeight: '500'}}>
-                  M-PESA Phone Number
+              <div className="mpesa-phone-input" style={{marginBottom: '2rem'}}>
+                <label style={{display: 'block', color: '#cccccc', marginBottom: '0.75rem', fontWeight: '600', fontSize: '0.9rem'}}>
+                  📱 M-PESA Phone Number
                 </label>
                 <div style={{position: 'relative', display: 'flex', alignItems: 'center'}}>
-                  <Smartphone style={{position: 'absolute', left: '0.75rem', top: '0.75rem', height: '1.25rem', width: '1.25rem', color: '#10b981', zIndex: 1}} />
-                  <span style={{position: 'absolute', left: '2.5rem', top: '0.75rem', color: '#10b981', fontWeight: 'bold', fontSize: '1rem', zIndex: 1}}>254</span>
+                  <div style={{
+                    position: 'absolute',
+                    left: '0.75rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    zIndex: 2,
+                    background: 'rgba(16, 185, 129, 0.1)',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '0.25rem',
+                    border: '1px solid rgba(16, 185, 129, 0.3)'
+                  }}>
+                    <Smartphone style={{height: '1rem', width: '1rem', color: '#10b981'}} />
+                    <span style={{color: '#10b981', fontWeight: '700', fontSize: '0.9rem'}}>+254</span>
+                  </div>
                   <input
                     type="tel"
                     value={phoneNumber.substring(3)}
@@ -150,15 +165,28 @@ const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSu
                         setPhoneNumber('254' + value);
                       }
                     }}
-                    className="form-input"
-                    style={{paddingLeft: '4.5rem'}}
-                    placeholder="712345678"
+                    className="form-input mpesa-input"
+                    style={{
+                      paddingLeft: '5.5rem',
+                      paddingRight: '1rem',
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      letterSpacing: '0.05rem',
+                      textAlign: 'left',
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      border: '2px solid rgba(16, 185, 129, 0.3)',
+                      borderRadius: '0.75rem',
+                      minHeight: '52px'
+                    }}
+                    placeholder="7XXXXXXXX"
                     maxLength={9}
                   />
                 </div>
-                <p style={{color: '#999', fontSize: '0.8rem', marginTop: '0.5rem'}}>
-                  Enter your 9-digit phone number (e.g., 712345678)
-                </p>
+                <div style={{marginTop: '0.75rem', padding: '0.5rem', background: 'rgba(16, 185, 129, 0.05)', borderRadius: '0.5rem', border: '1px solid rgba(16, 185, 129, 0.2)'}}>
+                  <p style={{color: '#10b981', fontSize: '0.8rem', margin: 0, textAlign: 'center'}}>
+                    💡 Enter your 9-digit Safaricom number (e.g., 712345678)
+                  </p>
+                </div>
               </div>
 
               {/* Payment Button */}

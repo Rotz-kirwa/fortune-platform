@@ -30,12 +30,70 @@ const InvestmentPlans: React.FC<InvestmentPlansProps> = ({ onClose, onInvestment
     fetchPlans();
   }, []);
 
+  const getHardcodedPlans = (): Plan[] => [
+    {
+      id: 1,
+      name: 'Bronze',
+      min_amount: '20',
+      max_amount: '50',
+      daily_return_rate: '0.035',
+      duration_days: 90,
+      description: 'Entry level - KSh 20 to KSh 50, earn 3.5% daily for 90 days'
+    },
+    {
+      id: 2,
+      name: 'Silver',
+      min_amount: '51',
+      max_amount: '500',
+      daily_return_rate: '0.04',
+      duration_days: 90,
+      description: 'Growing returns - KSh 51 to KSh 500, earn 4% daily for 90 days'
+    },
+    {
+      id: 3,
+      name: 'Premium',
+      min_amount: '501',
+      max_amount: '5000',
+      daily_return_rate: '0.045',
+      duration_days: 90,
+      description: 'Premium tier - KSh 501 to KSh 5,000, earn 4.5% daily for 90 days'
+    },
+    {
+      id: 4,
+      name: 'Platinum',
+      min_amount: '5001',
+      max_amount: '50000',
+      daily_return_rate: '0.05',
+      duration_days: 90,
+      description: 'High returns - KSh 5,001 to KSh 50,000, earn 5% daily for 90 days'
+    },
+    {
+      id: 5,
+      name: 'Diamond',
+      min_amount: '50001',
+      max_amount: '500000',
+      daily_return_rate: '0.055',
+      duration_days: 90,
+      description: 'Elite tier - KSh 50,001 to KSh 500,000, earn 5.5% daily for 90 days'
+    },
+    {
+      id: 6,
+      name: 'Gold',
+      min_amount: '500001',
+      max_amount: '1000000',
+      daily_return_rate: '0.06',
+      duration_days: 90,
+      description: 'Ultimate tier - KSh 500,001 to KSh 1,000,000, earn 6% daily for 90 days'
+    }
+  ];
+
   const fetchPlans = async () => {
     try {
       const response = await investmentAPI.getPlans();
       setPlans(response.data);
     } catch (error) {
-      console.error('Error fetching plans:', error);
+      console.error('Error fetching plans, using hardcoded plans:', error);
+      setPlans(getHardcodedPlans());
     }
   };
 
