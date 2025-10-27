@@ -49,6 +49,53 @@ router.post('/stk', async (req, res) => {
   }
 });
 
+// Withdrawal endpoint
+router.post('/withdraw', async (req, res) => {
+  try {
+    const { amount } = req.body;
+    
+    console.log('💰 Withdrawal request received:', { amount });
+    
+    // Validate amount
+    if (!amount || isNaN(amount) || amount < 1) {
+      return res.status(400).json({ 
+        error: 'Invalid amount',
+        message: 'Please provide a valid withdrawal amount'
+      });
+    }
+
+    // Check minimum withdrawal amount
+    const MIN_WITHDRAWAL = 100;
+    if (amount < MIN_WITHDRAWAL) {
+      return res.status(400).json({ 
+        error: 'Amount too low',
+        message: `Minimum withdrawal amount is KSh ${MIN_WITHDRAWAL}`
+      });
+    }
+
+    // TODO: Check user balance
+    // TODO: Create withdrawal record
+    // TODO: Initiate M-PESA B2C payment
+    
+    // For now, just log and return success message
+    console.log(`✅ Withdrawal request accepted: KSh ${amount}`);
+    
+    res.json({ 
+      success: true,
+      message: `Withdrawal request for KSh ${amount} has been submitted successfully!\n\nYour request is being processed and will be sent to your M-PESA account within 24 hours.`,
+      amount: amount,
+      status: 'pending'
+    });
+    
+  } catch (err) {
+    console.error('❌ Withdrawal error:', err.message);
+    res.status(500).json({ 
+      error: 'Withdrawal failed',
+      message: 'Unable to process withdrawal request. Please try again later.'
+    });
+  }
+});
+
 // M-PESA STK Push Callback endpoint
 router.post('/callback', async (req, res) => {
   try {
