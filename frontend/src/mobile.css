@@ -386,6 +386,24 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .register-form .form-input,
+  .register-form button {
+    transition: none !important;
+  }
+
+  .field-error,
+  .field-success {
+    animation: none !important;
+  }
+  
+  .withdrawal-ticker .ticker-content {
+    animation: none !important;
+  }
+  
+  .hero-section {
+    transition: none !important;
+  }
 }
 
 /* High DPI Displays */
@@ -429,10 +447,219 @@
   border-radius: 2px;
 }
 
+/* Registration Form Specific Scrollbar */
+.register-form::-webkit-scrollbar {
+  width: 3px;
+}
+
+.register-form::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 53, 0.3);
+  border-radius: 1.5px;
+}
+
 /* Mobile Hide Class */
 @media (max-width: 480px) {
   .mobile-hide {
     display: none !important;
+  }
+}
+
+/* Withdrawal Ticker Mobile Optimizations */
+@media (max-width: 768px) {
+  .withdrawal-ticker {
+    margin: 0 -0.75rem !important;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .withdrawal-ticker {
+    margin: 0 -0.5rem !important;
+  }
+}
+
+/* Page Layout Mobile Optimizations */
+@media (max-width: 768px) {
+  .min-h-screen {
+    padding-top: 3.5rem !important;
+  }
+  
+  .container {
+    padding: 0 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .min-h-screen {
+    padding-top: 3rem !important;
+  }
+  
+  .container {
+    padding: 0 0.5rem !important;
+  }
+}
+
+/* Registration Form Mobile Optimizations */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 1rem 0.75rem !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .register-form-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .register-card {
+    padding: 1.5rem !important;
+    margin: 0 !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .register-header h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .register-header p {
+    font-size: 0.8rem !important;
+  }
+
+  .register-form .form-group {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .register-form .form-input {
+    padding: 0.875rem 0.75rem !important;
+    font-size: 1rem !important;
+    min-height: 48px !important;
+    border-radius: 0.75rem !important;
+  }
+
+  .register-form input[name="password"],
+  .register-form input[name="confirmPassword"] {
+    font-size: 1.125rem !important;
+    letter-spacing: 0.25rem !important;
+    padding: 0.875rem 2.5rem !important;
+  }
+
+  .register-form label {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  .register-form .error p,
+  .register-form .form-group p {
+    font-size: 0.7rem !important;
+  }
+
+  .register-form button[type="submit"] {
+    padding: 1rem 1.5rem !important;
+    font-size: 0.95rem !important;
+    min-height: 52px !important;
+    border-radius: 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    padding: 0.75rem 0.5rem !important;
+  }
+
+  .register-card {
+    padding: 1.25rem !important;
+  }
+
+  .register-header h1 {
+    font-size: 1.4rem !important;
+  }
+
+  .register-form .form-input {
+    padding: 0.8rem 0.7rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .register-form input[name="password"],
+  .register-form input[name="confirmPassword"] {
+    font-size: 1rem !important;
+    letter-spacing: 0.2rem !important;
+    padding: 0.8rem 2.3rem !important;
+  }
+
+  .register-form button[type="submit"] {
+    padding: 0.9rem 1.25rem !important;
+    font-size: 0.9rem !important;
+    min-height: 48px !important;
+  }
+}
+
+/* Form Focus States for Mobile */
+@media (max-width: 768px) {
+  .register-form .form-input:focus {
+    outline: 2px solid #ff6b35 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1) !important;
+  }
+
+  .register-form button:focus {
+    outline: 2px solid #ffffff !important;
+    outline-offset: 2px !important;
+  }
+}
+
+/* Touch Improvements for Registration */
+@media (hover: none) and (pointer: coarse) {
+  .register-form .form-input {
+    min-height: 48px !important;
+  }
+
+  .register-form button {
+    min-height: 48px !important;
+  }
+
+  .register-form button[type="button"] {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 0.5rem !important;
+  }
+
+  .register-form button[type="submit"]:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s !important;
+  }
+}
+
+/* Card Spacing Mobile Improvements */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1rem !important;
+  }
+  
+  .card h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .card h3 {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .card h2 {
+    font-size: 1.2rem !important;
+    margin-bottom: 0.75rem !important;
   }
 }
 
@@ -443,9 +670,69 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    background-size: contain !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    height: 45vh !important;
+    min-height: 280px !important;
+    padding: 0.75rem !important;
+  }
+  
+  .hero-section h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .hero-section p {
+    font-size: 0.9rem !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+  
+  .hero-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    padding: 0.8rem 1.25rem !important;
+    font-size: 0.9rem !important;
+    min-height: 48px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
     height: 40vh !important;
-    min-height: 250px !important;
+    min-height: 260px !important;
+    padding: 0.5rem !important;
+  }
+  
+  .hero-section h1 {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .hero-section p {
+    font-size: 0.85rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  
+  .hero-btn {
+    max-width: 260px !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.85rem !important;
+    min-height: 44px !important;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero-section {
+    height: 80vh !important;
+    min-height: 300px !important;
   }
 }
 
@@ -462,13 +749,29 @@
   .mobile-btn {
     font-size: 0.9rem !important;
     padding: 0.75rem 1rem !important;
+    min-height: 48px !important;
+    border-radius: 0.75rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .mobile-btn {
     font-size: 0.85rem !important;
-    padding: 0.6rem 0.8rem !important;
+    padding: 0.7rem 0.9rem !important;
+    min-height: 44px !important;
+  }
+}
+
+/* Button Hover Effects for Mobile */
+@media (hover: none) and (pointer: coarse) {
+  .hero-btn:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s !important;
+  }
+  
+  .mobile-btn:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s !important;
   }
 }
 
@@ -492,6 +795,29 @@
 .btn-secondary:focus {
   outline: 2px solid #ff6b35;
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+}
+
+/* Form Validation States */
+.form-input.error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.form-input.success {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Animation Improvements */
+.form-input,
+.btn-primary,
+.btn-secondary {
+  transition: all 0.2s ease !important;
+}
+
+.form-group {
+  transition: margin 0.2s ease !important;
 }
 
 /* Loading States */
@@ -500,15 +826,93 @@
   opacity: 0.7;
 }
 
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: -0.5rem 0 0 -0.5rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Smooth Transitions */
+.hero-section,
+.withdrawal-ticker,
+.card,
+.btn-primary,
+.btn-secondary {
+  transition: all 0.2s ease !important;
+}
+
+/* Performance Optimizations */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .hero-section {
+    will-change: transform;
+  }
+  
+  .withdrawal-ticker {
+    will-change: transform;
+  }
+}
+
 /* Error States */
 .error {
-  background-color: rgba(239, 68, 68, 0.1) !important;
-  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
   color: #ef4444 !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .success {
-  background-color: rgba(16, 185, 129, 0.1) !important;
-  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
   color: #10b981 !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Field Error States */
+.field-error {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Success Indicators */
+.field-success {
+  color: #10b981;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

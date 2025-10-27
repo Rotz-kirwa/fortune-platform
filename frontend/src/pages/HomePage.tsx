@@ -6,6 +6,7 @@ import { investmentAPI } from '../services/api';
 import LiveChart from '../components/common/LiveChart';
 import WithdrawalTicker from '../components/common/WithdrawalTicker';
 import InvestmentPlans from '../components/investment/InvestmentPlans';
+import ReferralSection from '../components/common/ReferralSection';
 
 interface DashboardStats {
   total_invested: string;
@@ -65,51 +66,168 @@ const HomePage: React.FC = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
-        height: '60vh',
-        minHeight: '300px',
+        height: '50vh',
+        minHeight: '280px',
         position: 'relative',
         display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem',
+        '::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.4)',
+          zIndex: 1
+        }
       }}>
-        <div style={{marginBottom: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap'}}>
-          {isAuthenticated ? (
-            <>
-              <button
-                onClick={() => setShowPlans(true)}
-                className="btn-primary mobile-btn"
-                style={{boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)'}}
-              >
-                <Plus style={{height: '1.25rem', width: '1.25rem', marginRight: '0.5rem'}} />
-                Start New Investment
-              </button>
-              <Link
-                to="/how-to-invest"
-                className="btn-secondary mobile-btn"
-                style={{boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)'}}
-              >
-                How to Invest
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/register" className="btn-primary" style={{fontSize: '1.125rem', padding: '0.75rem 2rem'}}>
-                Start Investing
-                <ArrowRight style={{marginLeft: '0.5rem', height: '1.25rem', width: '1.25rem'}} />
-              </Link>
-              <Link to="/how-to-invest" className="btn-secondary" style={{fontSize: '1.125rem', padding: '0.75rem 2rem'}}>
-                How to Invest
-              </Link>
-            </>
-          )}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.4)',
+          zIndex: 1
+        }}></div>
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
+          textAlign: 'center',
+          maxWidth: '600px',
+          width: '100%'
+        }}>
+          <h1 className="mobile-heading" style={{
+            fontSize: '2rem',
+            fontWeight: '800',
+            color: '#ffffff',
+            marginBottom: '1rem',
+            textShadow: '0 4px 20px rgba(0, 0, 0, 0.8)',
+            lineHeight: '1.2'
+          }}>
+            Grow Your Wealth with Fortune Farm
+          </h1>
+          <p style={{
+            fontSize: '1rem',
+            color: 'rgba(255, 255, 255, 0.9)',
+            marginBottom: '2rem',
+            textShadow: '0 2px 10px rgba(0, 0, 0, 0.8)'
+          }}>
+            Start investing from KSh 1 and earn up to 3.5% daily returns
+          </p>
+          <div className="hero-buttons" style={{
+            display: 'flex',
+            gap: '0.75rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+          }}>
+            {isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => setShowPlans(true)}
+                  className="btn-primary mobile-btn hero-btn"
+                  style={{
+                    background: 'linear-gradient(135deg, #ff6b35, #f7931e)',
+                    border: 'none',
+                    padding: '0.875rem 1.5rem',
+                    fontSize: '0.95rem',
+                    fontWeight: '600',
+                    borderRadius: '0.75rem',
+                    boxShadow: '0 8px 32px rgba(255, 107, 53, 0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    minWidth: '160px',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <Plus style={{height: '1.125rem', width: '1.125rem'}} />
+                  Start Investing
+                </button>
+                <Link
+                  to="/how-to-invest"
+                  className="btn-secondary mobile-btn hero-btn"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                    color: '#ffffff',
+                    padding: '0.875rem 1.5rem',
+                    fontSize: '0.95rem',
+                    fontWeight: '600',
+                    borderRadius: '0.75rem',
+                    textDecoration: 'none',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minWidth: '140px'
+                  }}
+                >
+                  How to Invest
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link 
+                  to="/register" 
+                  className="btn-primary mobile-btn hero-btn"
+                  style={{
+                    background: 'linear-gradient(135deg, #ff6b35, #f7931e)',
+                    border: 'none',
+                    color: '#ffffff',
+                    padding: '0.875rem 1.5rem',
+                    fontSize: '0.95rem',
+                    fontWeight: '600',
+                    borderRadius: '0.75rem',
+                    textDecoration: 'none',
+                    boxShadow: '0 8px 32px rgba(255, 107, 53, 0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    minWidth: '160px',
+                    justifyContent: 'center'
+                  }}
+                >
+                  Start Investing
+                  <ArrowRight style={{height: '1.125rem', width: '1.125rem'}} />
+                </Link>
+                <Link 
+                  to="/how-to-invest" 
+                  className="btn-secondary mobile-btn hero-btn"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                    color: '#ffffff',
+                    padding: '0.875rem 1.5rem',
+                    fontSize: '0.95rem',
+                    fontWeight: '600',
+                    borderRadius: '0.75rem',
+                    textDecoration: 'none',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minWidth: '140px'
+                  }}
+                >
+                  How to Invest
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
-      <div style={{padding: '1rem'}}>
+      <div style={{padding: '0.75rem'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto'}}>
 
         {/* Live Withdrawals Ticker */}
-        <div style={{marginBottom: '1.5rem'}}>
+        <div style={{marginBottom: '1rem'}}>
           <WithdrawalTicker />
         </div>
 
@@ -167,6 +285,9 @@ const HomePage: React.FC = () => {
                 <p style={{color: '#cccccc', fontSize: '0.85rem'}}>Active Investments</p>
               </div>
             </div>
+
+            {/* Referral Section */}
+            <ReferralSection />
 
             {/* Withdrawal Button */}
             <div style={{textAlign: 'center', marginBottom: '1.5rem'}}>
@@ -299,7 +420,7 @@ const HomePage: React.FC = () => {
                 <div className="card" style={{textAlign: 'center'}}>
                   <TrendingUp style={{height: '3rem', width: '3rem', color: '#ff6b35', margin: '0 auto 1rem', filter: 'drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))'}} />
                   <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem'}}>Daily Returns</h3>
-                  <p style={{color: '#cccccc'}}>Earn 3.5% to 6% daily returns on your investments with our proven strategies.</p>
+                  <p style={{color: '#cccccc'}}>Earn 1% to 3.5% daily returns on your investments with our proven strategies.</p>
                 </div>
                 
                 <div className="card" style={{textAlign: 'center'}}>
@@ -327,12 +448,12 @@ const HomePage: React.FC = () => {
                     <div style={{color: '#cccccc'}}>Invested</div>
                   </div>
                   <div>
-                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>6%</div>
+                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>3.5%</div>
                     <div style={{color: '#cccccc'}}>Max Daily Return</div>
                   </div>
                   <div>
-                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>30-90</div>
-                    <div style={{color: '#cccccc'}}>Days Plans</div>
+                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>30</div>
+                    <div style={{color: '#cccccc'}}>Days Duration</div>
                   </div>
                 </div>
               </div>

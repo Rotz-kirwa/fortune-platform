@@ -47,4 +47,33 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+// Referral endpoints
+router.get('/referral-stats', auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const baseUrl = process.env.FRONTEND_URL || 'https://fortune-platform-two.vercel.app';
+    
+    // Get referral stats from database
+    const pool = require('../config/db');
+    const result = await pool.query(`
+      SELECT 
+        COUNT(r.id) as total_referrals,
+        COALESCE(SUM(r.commission_amount), 0) as total_commission
+      FROM referrals r 
+      WHERE r.referrer_id = $1
+    `, [userId]);
+    
+    const stats = result.rows[0] || { total_referrals: 0, total_commission: 0 };
+    
+    res.json({
+      referral_link: `${baseUrl}/register?ref=${userId}`,
+      total_referrals: parseInt(stats.total_referrals),
+      total_commission: parseFloat(stats.total_commission).toFixed(2)
+    });
+  } catch (err) {
+    console.error('Error fetching referral stats:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 module.exports = router;

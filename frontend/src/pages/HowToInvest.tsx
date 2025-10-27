@@ -1,8 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, UserPlus, CreditCard, TrendingUp, DollarSign, Clock, Target } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import InvestmentPlans from '../components/investment/InvestmentPlans';
 
 const HowToInvest: React.FC = () => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [showPlans, setShowPlans] = useState(false);
+
+  const handlePlanClick = () => {
+    if (isAuthenticated) {
+      setShowPlans(true);
+    } else {
+      navigate('/register');
+    }
+  };
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%)', paddingTop: '8rem', minHeight: '100vh'}}>
       <div style={{padding: '2rem 1rem', minHeight: 'calc(100vh - 8rem)'}}>
@@ -81,38 +94,41 @@ const HowToInvest: React.FC = () => {
                   Step 2: Choose Investment Plan
                 </h3>
                 <p style={{color: '#cccccc', fontSize: '1.1rem', marginBottom: '1rem'}}>
-                  Select from our 6 investment plans based on your budget. Start from as low as KSh 20.
+                  Select from our 6 investment plans based on your budget. Start from as low as KSh 1.
                 </p>
-                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem', marginTop: '1rem'}}>
-                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(205, 127, 50, 0.1)', borderRadius: '0.5rem'}}>
+                <p style={{color: '#ff6b35', fontSize: '0.9rem', marginBottom: '1rem', textAlign: 'center'}}>
+                  👆 Click on any plan below to {isAuthenticated ? 'start investing' : 'register and invest'}
+                </p>
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem', marginTop: '1rem', cursor: 'pointer'}} onClick={handlePlanClick}>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(205, 127, 50, 0.1)', borderRadius: '0.5rem', transition: 'transform 0.2s, box-shadow 0.2s'}} className="plan-card">
                     <div style={{color: '#cd7f32', fontWeight: 'bold'}}>Bronze</div>
-                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 20-50</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>3.5% daily</div>
+                    <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 1-50</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>1% daily</div>
                   </div>
-                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(192, 192, 192, 0.1)', borderRadius: '0.5rem'}}>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(192, 192, 192, 0.1)', borderRadius: '0.5rem', transition: 'transform 0.2s, box-shadow 0.2s'}} className="plan-card">
                     <div style={{color: '#c0c0c0', fontWeight: 'bold'}}>Silver</div>
                     <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 51-500</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>4% daily</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>1.5% daily</div>
                   </div>
-                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '0.5rem'}}>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '0.5rem', transition: 'transform 0.2s, box-shadow 0.2s'}} className="plan-card">
                     <div style={{color: '#3b82f6', fontWeight: 'bold'}}>Premium</div>
                     <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 501-5K</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>4.5% daily</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>2% daily</div>
                   </div>
-                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(229, 228, 226, 0.1)', borderRadius: '0.5rem'}}>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(229, 228, 226, 0.1)', borderRadius: '0.5rem', transition: 'transform 0.2s, box-shadow 0.2s'}} className="plan-card">
                     <div style={{color: '#e5e4e2', fontWeight: 'bold'}}>Platinum</div>
                     <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 5K-50K</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>5% daily</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>2.5% daily</div>
                   </div>
-                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(185, 242, 255, 0.1)', borderRadius: '0.5rem'}}>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(185, 242, 255, 0.1)', borderRadius: '0.5rem', transition: 'transform 0.2s, box-shadow 0.2s'}} className="plan-card">
                     <div style={{color: '#b9f2ff', fontWeight: 'bold'}}>Diamond</div>
                     <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 50K-500K</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>5.5% daily</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>3% daily</div>
                   </div>
-                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(251, 191, 36, 0.1)', borderRadius: '0.5rem'}}>
+                  <div style={{textAlign: 'center', padding: '0.5rem', background: 'rgba(251, 191, 36, 0.1)', borderRadius: '0.5rem', transition: 'transform 0.2s, box-shadow 0.2s'}} className="plan-card">
                     <div style={{color: '#fbbf24', fontWeight: 'bold'}}>Gold</div>
                     <div style={{color: '#cccccc', fontSize: '0.9rem'}}>KSh 500K-1M</div>
-                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>6% daily</div>
+                    <div style={{color: '#10b981', fontSize: '0.8rem'}}>3.5% daily</div>
                   </div>
                 </div>
               </div>
@@ -221,12 +237,12 @@ const HowToInvest: React.FC = () => {
                 <div style={{color: '#cccccc'}}>Initial Investment</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 225/day</div>
-                <div style={{color: '#cccccc'}}>Daily Profit (4.5%)</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 100/day</div>
+                <div style={{color: '#cccccc'}}>Daily Profit (2%)</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 25,250</div>
-                <div style={{color: '#cccccc'}}>Total After 90 Days</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 8,000</div>
+                <div style={{color: '#cccccc'}}>Total After 30 Days</div>
               </div>
             </div>
           </div>
@@ -247,6 +263,23 @@ const HowToInvest: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Investment Plans Modal */}
+      {showPlans && isAuthenticated && (
+        <InvestmentPlans
+          onClose={() => setShowPlans(false)}
+          onInvestmentCreated={() => {
+            setShowPlans(false);
+          }}
+        />
+      )}
+
+      <style>{`
+        .plan-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+      `}</style>
     </div>
   );
 };

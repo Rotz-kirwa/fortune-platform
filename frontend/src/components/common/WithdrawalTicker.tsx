@@ -38,48 +38,60 @@ const WithdrawalTicker: React.FC = () => {
   const duplicatedWithdrawals = [...withdrawals, ...withdrawals, ...withdrawals];
 
   return (
-    <div style={{
-      background: 'rgba(16, 185, 129, 0.1)',
-      padding: '1rem 0',
+    <div className="withdrawal-ticker" style={{
+      background: 'rgba(16, 185, 129, 0.08)',
+      padding: '0.75rem 0',
       overflow: 'hidden',
       position: 'relative',
-      border: '1px solid rgba(16, 185, 129, 0.2)',
-      borderRadius: '0.5rem'
+      border: '1px solid rgba(16, 185, 129, 0.25)',
+      borderRadius: '0.75rem',
+      backdropFilter: 'blur(10px)'
     }}>
-      <div style={{
+      <div className="ticker-content" style={{
         display: 'flex',
-        animation: 'scroll 25s linear infinite',
-        gap: '2rem'
+        animation: 'scroll 30s linear infinite',
+        gap: '1rem'
       }}>
         {duplicatedWithdrawals.map((withdrawal, index) => (
           <div
             key={index}
+            className="withdrawal-item"
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
+              gap: '0.375rem',
               whiteSpace: 'nowrap',
               minWidth: 'fit-content',
-              background: 'rgba(16, 185, 129, 0.15)',
-              padding: '0.4rem 0.8rem',
-              borderRadius: '1.5rem',
-              border: '1px solid rgba(16, 185, 129, 0.4)',
-              animation: 'pulse 2s ease-in-out infinite',
-              boxShadow: '0 2px 8px rgba(16, 185, 129, 0.2)'
+              background: 'rgba(16, 185, 129, 0.12)',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '2rem',
+              border: '1px solid rgba(16, 185, 129, 0.3)',
+              boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)',
+              fontSize: '0.8rem',
+              fontWeight: '500'
             }}
           >
-            <span style={{ 
-              color: '#cccccc', 
-              fontSize: '0.9rem',
-              animation: 'blink 1.5s ease-in-out infinite'
+            <span className="phone-number" style={{ 
+              color: '#e5e7eb',
+              fontSize: '0.75rem',
+              fontWeight: '600'
             }}>
               {withdrawal.phone}
             </span>
-            <span style={{ color: '#10b981', fontSize: '0.8rem' }}>
-              just withdrew
+            <span className="action-text" style={{ 
+              color: '#10b981', 
+              fontSize: '0.7rem',
+              fontWeight: '500'
+            }}>
+              withdrew
             </span>
-            <span style={{ color: '#ff6b35', fontWeight: 'bold', fontSize: '0.9rem' }}>
-              KES {withdrawal.amount.toLocaleString()}
+            <span className="amount" style={{ 
+              color: '#ff6b35', 
+              fontWeight: '700', 
+              fontSize: '0.75rem',
+              textShadow: '0 1px 2px rgba(255, 107, 53, 0.3)'
+            }}>
+              KSh {withdrawal.amount.toLocaleString()}
             </span>
           </div>
         ))}
@@ -95,29 +107,70 @@ const WithdrawalTicker: React.FC = () => {
           }
         }
         
-        @keyframes blink {
-          0%, 50% {
-            opacity: 1;
-            color: #cccccc;
+        .withdrawal-item:hover {
+          background: rgba(16, 185, 129, 0.18) !important;
+          transform: scale(1.02);
+          transition: all 0.2s ease;
+        }
+        
+        @media (max-width: 768px) {
+          .withdrawal-ticker {
+            padding: 0.5rem 0 !important;
+            border-radius: 0.5rem !important;
           }
-          75% {
-            opacity: 0.7;
-            color: #10b981;
+          
+          .ticker-content {
+            gap: 0.75rem !important;
+            animation: scroll 25s linear infinite !important;
           }
-          100% {
-            opacity: 1;
-            color: #cccccc;
+          
+          .withdrawal-item {
+            padding: 0.375rem 0.625rem !important;
+            gap: 0.25rem !important;
+            border-radius: 1.5rem !important;
+            font-size: 0.75rem !important;
+          }
+          
+          .phone-number {
+            font-size: 0.7rem !important;
+          }
+          
+          .action-text {
+            font-size: 0.65rem !important;
+          }
+          
+          .amount {
+            font-size: 0.7rem !important;
+            font-weight: 800 !important;
           }
         }
         
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 0.8;
-            transform: scale(1);
+        @media (max-width: 480px) {
+          .withdrawal-ticker {
+            padding: 0.375rem 0 !important;
           }
-          50% {
-            opacity: 1;
-            transform: scale(1.02);
+          
+          .ticker-content {
+            gap: 0.5rem !important;
+            animation: scroll 20s linear infinite !important;
+          }
+          
+          .withdrawal-item {
+            padding: 0.3rem 0.5rem !important;
+            gap: 0.2rem !important;
+            font-size: 0.7rem !important;
+          }
+          
+          .phone-number {
+            font-size: 0.65rem !important;
+          }
+          
+          .action-text {
+            font-size: 0.6rem !important;
+          }
+          
+          .amount {
+            font-size: 0.65rem !important;
           }
         }
       `}</style>

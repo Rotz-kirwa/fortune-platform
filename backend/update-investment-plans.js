@@ -12,51 +12,51 @@ async function updateInvestmentPlans() {
     const newPlans = [
       {
         name: 'Bronze',
-        description: 'KSh 20-50, 3.5% daily',
-        min_amount: 20,
+        description: 'Entry level - KSh 1 to KSh 50, earn 1% daily for 30 days',
+        min_amount: 1,
         max_amount: 50,
-        daily_return_rate: 0.035,
-        duration_days: 90
+        daily_return_rate: 0.01,
+        duration_days: 30
       },
       {
         name: 'Silver',
-        description: 'KSh 51-500, 4% daily',
+        description: 'Growing returns - KSh 51 to KSh 500, earn 1.5% daily for 30 days',
         min_amount: 51,
         max_amount: 500,
-        daily_return_rate: 0.04,
-        duration_days: 90
+        daily_return_rate: 0.015,
+        duration_days: 30
       },
       {
         name: 'Premium',
-        description: 'KSh 501-5K, 4.5% daily',
+        description: 'Premium tier - KSh 501 to KSh 5,000, earn 2% daily for 30 days',
         min_amount: 501,
         max_amount: 5000,
-        daily_return_rate: 0.045,
-        duration_days: 90
+        daily_return_rate: 0.02,
+        duration_days: 30
       },
       {
         name: 'Platinum',
-        description: 'KSh 5K-50K, 5% daily',
-        min_amount: 5000,
+        description: 'High returns - KSh 5,001 to KSh 50,000, earn 2.5% daily for 30 days',
+        min_amount: 5001,
         max_amount: 50000,
-        daily_return_rate: 0.05,
-        duration_days: 90
+        daily_return_rate: 0.025,
+        duration_days: 30
       },
       {
         name: 'Diamond',
-        description: 'KSh 50K-500K, 5.5% daily',
-        min_amount: 50000,
+        description: 'Elite tier - KSh 50,001 to KSh 500,000, earn 3% daily for 30 days',
+        min_amount: 50001,
         max_amount: 500000,
-        daily_return_rate: 0.055,
-        duration_days: 90
+        daily_return_rate: 0.03,
+        duration_days: 30
       },
       {
         name: 'Gold',
-        description: 'KSh 500K-1M, 6% daily',
-        min_amount: 500000,
+        description: 'Ultimate tier - KSh 500,001 to KSh 1,000,000, earn 3.5% daily for 30 days',
+        min_amount: 500001,
         max_amount: 1000000,
-        daily_return_rate: 0.06,
-        duration_days: 90
+        daily_return_rate: 0.035,
+        duration_days: 30
       }
     ];
     

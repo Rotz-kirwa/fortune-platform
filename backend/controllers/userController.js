@@ -7,7 +7,7 @@ require('dotenv').config();
 const userController = {
   register: async (req, res) => {
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, referralCode } = req.body;
       
       // Validation
       if (!name || !email || !password) {
@@ -28,6 +28,26 @@ const userController = {
       if (existing) return res.status(400).json({ error: 'User already exists' });
 
       const user = await User.create({ name: name.trim(), email: email.toLowerCase(), password });
+      
+      // Handle referral if provided
+      if (referralCode) {
+        try {
+          const pool = require('../config/db');
+          const referrer = await pool.query('SELECT id FROM users WHERE id = $1', [referralCode]);
+          
+          if (referrer.rows.length > 0) {
+            await pool.query(
+              'INSERT INTO referrals (referrer_id, referred_id, status) VALUES ($1, $2, $3)',
+              [referralCode, user.id, 'active']
+            );
+            console.log(`✅ Referral recorded: ${referralCode} -> ${user.id}`);
+          }
+        } catch (refError) {
+          console.error('Referral error:', refError);
+          // Don't fail registration if referral fails
+        }
+      }
+      
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
       // Remove password from response
