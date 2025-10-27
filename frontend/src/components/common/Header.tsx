@@ -11,8 +11,8 @@ const Header: React.FC = () => {
       <div className="container">
         <div className="flex justify-between items-center" style={{height: '4rem', padding: '0 0.75rem'}}>
           <Link to="/" className="flex items-center" style={{textDecoration: 'none', gap: '0.5rem'}}>
-            <Coins style={{height: '1.75rem', width: '1.75rem', color: '#ff6b35', filter: 'drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))'}} />
-            <span style={{fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff'}}>Fortune</span>
+            <img src="https://images.unsplash.com/photo-1691440604411-c667eb8f8d0f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZG9sbGFyJTIwc2lnbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=500" alt="Fortune Farm" style={{height: '1.75rem', width: '1.75rem', borderRadius: '0.25rem', filter: 'drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))'}} />
+            <span style={{fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff'}}>Fortune Farm</span>
           </Link>
 
           <div className="flex items-center" style={{gap: '0.5rem'}}>

@@ -60,12 +60,12 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%)', paddingTop: '4rem'}}>
       {/* Hero Section */}
-      <div style={{
+      <div className="hero-section" style={{
         backgroundImage: 'url(https://dl.dropboxusercontent.com/scl/fi/jub3petorwv8sdt30rehx/sol-1.jpg?rlkey=79ja6w6l9ipxh2ak5p8x2j4pp&st=8de3t9dv)',
-        backgroundSize: window.innerWidth <= 768 ? 'contain' : 'cover',
+        backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
-        height: window.innerWidth <= 768 ? '50vh' : '60vh',
+        height: '60vh',
         minHeight: '300px',
         position: 'relative',
         display: 'flex',
@@ -77,16 +77,16 @@ const HomePage: React.FC = () => {
             <>
               <button
                 onClick={() => setShowPlans(true)}
-                className="btn-primary"
-                style={{fontSize: '1.1rem', padding: '1rem 2rem', boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)'}}
+                className="btn-primary mobile-btn"
+                style={{boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)'}}
               >
                 <Plus style={{height: '1.25rem', width: '1.25rem', marginRight: '0.5rem'}} />
                 Start New Investment
               </button>
               <Link
                 to="/how-to-invest"
-                className="btn-secondary"
-                style={{fontSize: '1.1rem', padding: '1rem 2rem', boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)'}}
+                className="btn-secondary mobile-btn"
+                style={{boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)'}}
               >
                 How to Invest
               </Link>
@@ -134,7 +134,7 @@ const HomePage: React.FC = () => {
         {isAuthenticated && stats && (
           <>
             {/* Stats Cards */}
-            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem'}}>
+            <div className="stats-grid" style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem'}}>
               <div className="card" style={{textAlign: 'center'}}>
                 <DollarSign style={{height: '2.5rem', width: '2.5rem', color: '#ff6b35', margin: '0 auto 1rem', filter: 'drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))'}} />
                 <h3 style={{fontSize: '1.4rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>
@@ -291,7 +291,7 @@ const HomePage: React.FC = () => {
             {/* Features Section for Non-Logged Users */}
             <div style={{marginBottom: '3rem'}}>
               <div style={{textAlign: 'center', marginBottom: '2rem'}}>
-                <h2 style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '1rem'}}>Why Invest With Fortune?</h2>
+                <h2 className="mobile-heading" style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '1rem'}}>Why Invest With Fortune Farm?</h2>
                 <p style={{fontSize: '1.25rem', color: '#cccccc'}}>Experience guaranteed daily returns on your investments</p>
               </div>
               
@@ -339,8 +339,8 @@ const HomePage: React.FC = () => {
 
               {/* CTA Section */}
               <div className="card" style={{textAlign: 'center', background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'}}>
-                <h2 style={{fontSize: '2.25rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem'}}>Ready to Start Earning?</h2>
-                <p style={{fontSize: '1.25rem', color: 'rgba(255, 255, 255, 0.9)', marginBottom: '2rem'}}>Join Fortune today and start earning daily profits on your investments.</p>
+                <h2 className="mobile-heading" style={{fontSize: '2.25rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem'}}>Ready to Start Earning?</h2>
+                <p style={{fontSize: '1.25rem', color: 'rgba(255, 255, 255, 0.9)', marginBottom: '2rem'}}>Join Fortune Farm today and start earning daily profits on your investments.</p>
                 <Link to="/register" style={{background: 'rgba(255, 255, 255, 0.95)', color: '#10b981', fontWeight: '600', padding: '0.75rem 2rem', borderRadius: '0.5rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)', backdropFilter: 'blur(10px)'}}>
                   Start Investing Now
                   <ArrowRight style={{marginLeft: '0.5rem', height: '1.25rem', width: '1.25rem'}} />

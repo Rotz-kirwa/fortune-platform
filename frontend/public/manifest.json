@@ -1,16 +1,16 @@
 {
-  "short_name": "Fortune Investment",
-  "name": "Fortune Investment Platform",
+  "short_name": "Fortune Farm",
+  "name": "Fortune Farm",
   "icons": [
     {
-      "src": "https://media.istockphoto.com/id/1130326185/photo/money-savings-investment-making-money-for-future-financial-wealth-management-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=rqEZYM8dEJfhWWeDXN017yFdgnM74-CpP2dkuCdK1kc=",
+      "src": "https://plus.unsplash.com/premium_photo-1676637656277-498f73258bec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9sbGFyJTIwc2lnbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=500",
       "sizes": "192x192",
-      "type": "image/webp"
+      "type": "image/jpeg"
     },
     {
-      "src": "https://media.istockphoto.com/id/1130326185/photo/money-savings-investment-making-money-for-future-financial-wealth-management-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=rqEZYM8dEJfhWWeDXN017yFdgnM74-CpP2dkuCdK1kc=",
+      "src": "https://plus.unsplash.com/premium_photo-1676637656277-498f73258bec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9sbGFyJTIwc2lnbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=500",
       "sizes": "512x512",
-      "type": "image/webp"
+      "type": "image/jpeg"
     }
   ],
   "start_url": ".",

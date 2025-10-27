@@ -99,24 +99,24 @@
   }
 
   /* Force Dashboard Stats to 2x2 Grid on Mobile */
-  .grid-cols-2,
-  .grid.grid-cols-2,
-  div[class*="grid-cols-2"],
-  div[class*="grid"][class*="md:grid-cols-4"] {
-    display: grid !important;
+  div[style*="gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))"],
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))"] {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.75rem !important;
   }
 
-  /* Override any conflicting grid rules */
-  .grid {
-    grid-template-columns: inherit !important;
+  /* Features section grid - single column */
+  div[style*="gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))"],
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))"] {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
   }
 
-  /* Dashboard Stats Cards */
-  .grid.grid-cols-2.md\\:grid-cols-4 {
+  /* Investment stats grid - 2 columns */
+  div[style*="gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))"],
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(80px, 1fr))"] {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.75rem !important;
+    gap: 0.5rem !important;
   }
 
   /* Dashboard Stats Card Content */
@@ -166,20 +166,31 @@
     gap: 0.75rem !important;
   }
 
-  /* Text Sizing */
-  h1, .text-3xl {
-    font-size: 1.5rem !important;
+  /* Text Sizing - Override inline styles */
+  h1, .text-3xl,
+  h1[style*="fontSize"],
+  h2[style*="fontSize"],
+  div[style*="fontSize: '2.25rem'"],
+  div[style*="fontSize: '1.5rem'"] {
+    font-size: 1.4rem !important;
     line-height: 1.3 !important;
   }
 
   h2 {
-    font-size: 1.3rem !important;
+    font-size: 1.25rem !important;
     line-height: 1.3 !important;
   }
 
   h3 {
-    font-size: 1.2rem !important;
+    font-size: 1.1rem !important;
     line-height: 1.3 !important;
+  }
+
+  /* Button text sizing */
+  button[style*="fontSize: '1.1rem'"],
+  a[style*="fontSize: '1.125rem'"] {
+    font-size: 0.9rem !important;
+    padding: 0.75rem 1rem !important;
   }
 
   /* Spacing Adjustments */
@@ -219,14 +230,29 @@
   }
 
   /* M-PESA Modal Specific */
-  div[style*="maxWidth: '500px'"] {
+  div[style*="maxWidth: '500px'"],
+  div[style*="max-width: 500px"] {
     max-width: 95vw !important;
+    margin: 0 0.5rem !important;
   }
 
   /* Investment Summary in M-PESA */
-  div[style*="grid-template-columns: repeat(2, 1fr)"] {
+  div[style*="grid-template-columns: repeat(2, 1fr)"],
+  div[style*="gridTemplateColumns: 'repeat(2, 1fr)'"]) {
     grid-template-columns: 1fr !important;
     gap: 0.75rem !important;
+  }
+
+  /* Hero section responsive */
+  div[style*="height: window.innerWidth"] {
+    height: 40vh !important;
+    min-height: 250px !important;
+  }
+
+  /* Investment card responsive */
+  div[style*="minWidth: '150px'"] {
+    min-width: 120px !important;
+    flex: 1 1 100% !important;
   }
 
   /* Dashboard Welcome Section */
@@ -407,6 +433,56 @@
 @media (max-width: 480px) {
   .mobile-hide {
     display: none !important;
+  }
+}
+
+/* Hero Section Responsive */
+.hero-section {
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    background-size: contain !important;
+    height: 40vh !important;
+    min-height: 250px !important;
+  }
+}
+
+/* Stats Grid Mobile */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* Mobile Button Sizing */
+@media (max-width: 768px) {
+  .mobile-btn {
+    font-size: 0.9rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-btn {
+    font-size: 0.85rem !important;
+    padding: 0.6rem 0.8rem !important;
+  }
+}
+
+/* Mobile Heading Sizing */
+@media (max-width: 768px) {
+  .mobile-heading {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-heading {
+    font-size: 1.3rem !important;
   }
 }
 

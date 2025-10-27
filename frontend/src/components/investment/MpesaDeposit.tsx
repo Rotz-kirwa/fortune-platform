@@ -17,7 +17,7 @@ interface MpesaDepositProps {
 
 const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSuccess }) => {
   const { user } = useAuth();
-  const [phoneNumber, setPhoneNumber] = useState('254712345678'); // Demo number for showcasing
+  const [phoneNumber, setPhoneNumber] = useState('254');
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1); // 1: Enter phone, 2: Processing, 3: Success, 4: Error
   const [error, setError] = useState('');
@@ -138,20 +138,26 @@ const MpesaDeposit: React.FC<MpesaDepositProps> = ({ plan, amount, onClose, onSu
                 <label style={{display: 'block', color: '#cccccc', marginBottom: '0.5rem', fontWeight: '500'}}>
                   M-PESA Phone Number
                 </label>
-                <div style={{position: 'relative'}}>
-                  <Smartphone style={{position: 'absolute', left: '0.75rem', top: '0.75rem', height: '1.25rem', width: '1.25rem', color: '#10b981'}} />
+                <div style={{position: 'relative', display: 'flex', alignItems: 'center'}}>
+                  <Smartphone style={{position: 'absolute', left: '0.75rem', top: '0.75rem', height: '1.25rem', width: '1.25rem', color: '#10b981', zIndex: 1}} />
+                  <span style={{position: 'absolute', left: '2.5rem', top: '0.75rem', color: '#10b981', fontWeight: 'bold', fontSize: '1rem', zIndex: 1}}>254</span>
                   <input
                     type="tel"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    value={phoneNumber.substring(3)}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '');
+                      if (value.length <= 9) {
+                        setPhoneNumber('254' + value);
+                      }
+                    }}
                     className="form-input"
-                    style={{paddingLeft: '2.5rem'}}
-                    placeholder="254712345678"
-                    maxLength={12}
+                    style={{paddingLeft: '4.5rem'}}
+                    placeholder="712345678"
+                    maxLength={9}
                   />
                 </div>
                 <p style={{color: '#999', fontSize: '0.8rem', marginTop: '0.5rem'}}>
-                  Enter your M-PESA registered phone number
+                  Enter your 9-digit phone number (e.g., 712345678)
                 </p>
               </div>
 

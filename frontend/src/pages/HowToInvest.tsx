@@ -221,12 +221,12 @@ const HowToInvest: React.FC = () => {
                 <div style={{color: '#cccccc'}}>Initial Investment</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 100/day</div>
-                <div style={{color: '#cccccc'}}>Daily Profit (2%)</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 225/day</div>
+                <div style={{color: '#cccccc'}}>Daily Profit (4.5%)</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 8,000</div>
-                <div style={{color: '#cccccc'}}>Total After 30 Days</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 25,250</div>
+                <div style={{color: '#cccccc'}}>Total After 90 Days</div>
               </div>
             </div>
           </div>

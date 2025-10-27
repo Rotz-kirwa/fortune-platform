@@ -12,51 +12,51 @@ async function updateInvestmentPlans() {
     const newPlans = [
       {
         name: 'Bronze',
-        description: 'Entry level - KSh 20 to KSh 50, earn 3.5% daily for 30 days',
+        description: 'KSh 20-50, 3.5% daily',
         min_amount: 20,
         max_amount: 50,
         daily_return_rate: 0.035,
-        duration_days: 30
+        duration_days: 90
       },
       {
         name: 'Silver',
-        description: 'Growing returns - KSh 51 to KSh 500, earn 4% daily for 30 days',
+        description: 'KSh 51-500, 4% daily',
         min_amount: 51,
         max_amount: 500,
         daily_return_rate: 0.04,
-        duration_days: 30
+        duration_days: 90
       },
       {
         name: 'Premium',
-        description: 'Premium tier - KSh 501 to KSh 5,000, earn 4.5% daily for 30 days',
+        description: 'KSh 501-5K, 4.5% daily',
         min_amount: 501,
         max_amount: 5000,
         daily_return_rate: 0.045,
-        duration_days: 30
+        duration_days: 90
       },
       {
         name: 'Platinum',
-        description: 'High returns - KSh 5,001 to KSh 50,000, earn 5% daily for 30 days',
-        min_amount: 5001,
+        description: 'KSh 5K-50K, 5% daily',
+        min_amount: 5000,
         max_amount: 50000,
         daily_return_rate: 0.05,
-        duration_days: 30
+        duration_days: 90
       },
       {
         name: 'Diamond',
-        description: 'Elite tier - KSh 50,001 to KSh 500,000, earn 5.5% daily for 30 days',
-        min_amount: 50001,
+        description: 'KSh 50K-500K, 5.5% daily',
+        min_amount: 50000,
         max_amount: 500000,
         daily_return_rate: 0.055,
-        duration_days: 30
+        duration_days: 90
       },
       {
         name: 'Gold',
-        description: 'Ultimate tier - KSh 500,001 to KSh 1,000,000, earn 6% daily for 30 days',
-        min_amount: 500001,
+        description: 'KSh 500K-1M, 6% daily',
+        min_amount: 500000,
         max_amount: 1000000,
         daily_return_rate: 0.06,
-        duration_days: 30
+        duration_days: 90
       }
     ];
     
