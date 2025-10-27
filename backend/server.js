@@ -3,6 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const compression = require('compression');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 // DB
 const { connectDB } = require('./config/db');
@@ -12,8 +15,24 @@ const ordersRouter = require('./routes/orders');
 const paymentsRouter = require('./routes/payments');
 const userRouter = require('./routes/users');
 const investmentRouter = require('./routes/investments');
+const adminRouter = require('./routes/admin');
 
 const app = express();
+
+// Security & Performance middleware
+app.use(helmet());
+app.use(compression());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP'
+});
+app.use('/api/', limiter);
+
+// Security middleware
+// Security middleware - inline implementation
 
 // middleware
 app.use(cors({
@@ -30,6 +49,20 @@ app.use(cors({
   preflightContinue: false,
   optionsSuccessStatus: 200
 }));
+
+// Apply security middleware
+// Inline security middleware
+app.use('/api/', (req, res, next) => {
+  // Basic input sanitization
+  if (req.body) {
+    for (const key in req.body) {
+      if (typeof req.body[key] === 'string') {
+        req.body[key] = req.body[key].replace(/[<>'"]/g, '');
+      }
+    }
+  }
+  next();
+});
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
@@ -65,6 +98,7 @@ app.use('/api/payments', paymentsRouter);
 app.use('/api/pay', paymentsRouter); // Add /api/pay route for frontend compatibility
 app.use('/api/users', userRouter);
 app.use('/api/investments', investmentRouter);
+app.use('/api/admin', adminRouter);
 
 // Test environment endpoint
 const testEnvRouter = require('./routes/test-env');
@@ -75,15 +109,23 @@ app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
+// Daily returns service
+const DailyReturnsService = require('./services/DailyReturnsService');
+
 // start server
 const port = process.env.PORT || 4000;
 
 async function startServer() {
   try {
     await connectDB();
+    
+    // Start daily returns cron job
+    DailyReturnsService.startDailyReturnsJob();
+    
     app.listen(port, () => {
       console.log(`🚀 Server running on http://localhost:${port}`);
       console.log(`📊 Health check: http://localhost:${port}/api/health`);
+      console.log(`⏰ Daily returns job active - runs at midnight`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);

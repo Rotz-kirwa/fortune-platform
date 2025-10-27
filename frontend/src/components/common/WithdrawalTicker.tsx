@@ -34,8 +34,8 @@ const WithdrawalTicker: React.FC = () => {
     { phone: '+254725-XXXX-XX', amount: 4987 }
   ];
 
-  // Duplicate the array to create seamless loop
-  const duplicatedWithdrawals = [...withdrawals, ...withdrawals];
+  // Triple the array for smoother continuous scrolling
+  const duplicatedWithdrawals = [...withdrawals, ...withdrawals, ...withdrawals];
 
   return (
     <div style={{
@@ -48,8 +48,8 @@ const WithdrawalTicker: React.FC = () => {
     }}>
       <div style={{
         display: 'flex',
-        animation: 'scroll 60s linear infinite',
-        gap: '3rem'
+        animation: 'scroll 25s linear infinite',
+        gap: '2rem'
       }}>
         {duplicatedWithdrawals.map((withdrawal, index) => (
           <div
@@ -60,13 +60,19 @@ const WithdrawalTicker: React.FC = () => {
               gap: '0.5rem',
               whiteSpace: 'nowrap',
               minWidth: 'fit-content',
-              background: 'rgba(16, 185, 129, 0.1)',
-              padding: '0.5rem 1rem',
-              borderRadius: '2rem',
-              border: '1px solid rgba(16, 185, 129, 0.3)'
+              background: 'rgba(16, 185, 129, 0.15)',
+              padding: '0.4rem 0.8rem',
+              borderRadius: '1.5rem',
+              border: '1px solid rgba(16, 185, 129, 0.4)',
+              animation: 'pulse 2s ease-in-out infinite',
+              boxShadow: '0 2px 8px rgba(16, 185, 129, 0.2)'
             }}
           >
-            <span style={{ color: '#cccccc', fontSize: '0.9rem' }}>
+            <span style={{ 
+              color: '#cccccc', 
+              fontSize: '0.9rem',
+              animation: 'blink 1.5s ease-in-out infinite'
+            }}>
               {withdrawal.phone}
             </span>
             <span style={{ color: '#10b981', fontSize: '0.8rem' }}>
@@ -86,6 +92,32 @@ const WithdrawalTicker: React.FC = () => {
           }
           100% {
             transform: translateX(-50%);
+          }
+        }
+        
+        @keyframes blink {
+          0%, 50% {
+            opacity: 1;
+            color: #cccccc;
+          }
+          75% {
+            opacity: 0.7;
+            color: #10b981;
+          }
+          100% {
+            opacity: 1;
+            color: #cccccc;
+          }
+        }
+        
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 0.8;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.02);
           }
         }
       `}</style>

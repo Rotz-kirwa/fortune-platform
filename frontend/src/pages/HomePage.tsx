@@ -264,13 +264,13 @@ const HomePage: React.FC = () => {
                 <div className="card" style={{textAlign: 'center'}}>
                   <TrendingUp style={{height: '3rem', width: '3rem', color: '#ff6b35', margin: '0 auto 1rem', filter: 'drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))'}} />
                   <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem'}}>Daily Returns</h3>
-                  <p style={{color: '#cccccc'}}>Earn 10% to 15% daily returns on your investments with our proven strategies.</p>
+                  <p style={{color: '#cccccc'}}>Earn 3.5% to 6% daily returns on your investments with our proven strategies.</p>
                 </div>
                 
                 <div className="card" style={{textAlign: 'center'}}>
                   <DollarSign style={{height: '3rem', width: '3rem', color: '#ff6b35', margin: '0 auto 1rem', filter: 'drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))'}} />
                   <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem'}}>Multiple Plans</h3>
-                  <p style={{color: '#cccccc'}}>Choose from Starter, Growth, Premium, or VIP plans based on your investment capacity.</p>
+                  <p style={{color: '#cccccc'}}>Choose from Bronze, Silver, Premium, Platinum, Diamond, or Gold plans based on your investment capacity.</p>
                 </div>
                 
                 <div className="card" style={{textAlign: 'center'}}>
@@ -292,7 +292,7 @@ const HomePage: React.FC = () => {
                     <div style={{color: '#cccccc'}}>Invested</div>
                   </div>
                   <div>
-                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>15%</div>
+                    <div style={{fontSize: '2.25rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem', textShadow: '0 0 20px rgba(255, 107, 53, 0.6)'}}>6%</div>
                     <div style={{color: '#cccccc'}}>Max Daily Return</div>
                   </div>
                   <div>
@@ -303,10 +303,10 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* CTA Section */}
-              <div className="card" style={{textAlign: 'center', background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)'}}>
+              <div className="card" style={{textAlign: 'center', background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'}}>
                 <h2 style={{fontSize: '2.25rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem'}}>Ready to Start Earning?</h2>
                 <p style={{fontSize: '1.25rem', color: 'rgba(255, 255, 255, 0.9)', marginBottom: '2rem'}}>Join Fortune today and start earning daily profits on your investments.</p>
-                <Link to="/register" style={{background: 'rgba(255, 255, 255, 0.95)', color: '#ff6b35', fontWeight: '600', padding: '0.75rem 2rem', borderRadius: '0.5rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)', backdropFilter: 'blur(10px)'}}>
+                <Link to="/register" style={{background: 'rgba(255, 255, 255, 0.95)', color: '#10b981', fontWeight: '600', padding: '0.75rem 2rem', borderRadius: '0.5rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)', backdropFilter: 'blur(10px)'}}>
                   Start Investing Now
                   <ArrowRight style={{marginLeft: '0.5rem', height: '1.25rem', width: '1.25rem'}} />
                 </Link>
