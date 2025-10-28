@@ -314,8 +314,8 @@ const HomePage: React.FC = () => {
             {/* Referral Section */}
             <ReferralSection />
 
-            {/* Withdrawal Button */}
-            <div style={{textAlign: 'center', marginBottom: '1.5rem'}}>
+            {/* Action Buttons */}
+            <div style={{textAlign: 'center', marginBottom: '1.5rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap'}}>
               <button
                 onClick={async () => {
                   try {
@@ -336,16 +336,46 @@ const HomePage: React.FC = () => {
                 }}
                 className="btn-primary"
                 style={{
-                  fontSize: '1.1rem',
-                  padding: '1rem 2rem',
+                  fontSize: '1rem',
+                  padding: '0.875rem 1.5rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
-                  margin: '0 auto'
+                  gap: '0.5rem'
                 }}
               >
                 <DollarSign style={{height: '1.25rem', width: '1.25rem'}} />
                 Request Withdrawal
+              </button>
+              
+              <button
+                onClick={async () => {
+                  try {
+                    const response = await fetch('/api/admin/calculate-returns', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' }
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                      alert(`✅ Updated ${data.updatedCount} investments!`);
+                      fetchDashboardData(); // Refresh data
+                    } else {
+                      alert('❌ Error: ' + data.error);
+                    }
+                  } catch (error) {
+                    alert('Network error. Please try again.');
+                  }
+                }}
+                className="btn-secondary"
+                style={{
+                  fontSize: '1rem',
+                  padding: '0.875rem 1.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
+                }}
+              >
+                <TrendingUp style={{height: '1.25rem', width: '1.25rem'}} />
+                Update Returns
               </button>
             </div>
 

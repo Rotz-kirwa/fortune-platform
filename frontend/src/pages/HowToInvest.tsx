@@ -94,7 +94,7 @@ const HowToInvest: React.FC = () => {
                   Step 2: Choose Investment Plan
                 </h3>
                 <p style={{color: '#cccccc', fontSize: '1.1rem', marginBottom: '1rem'}}>
-                  Select from our 6 investment plans based on your budget. Start from as low as KSh 20.
+                  Select from our 6 investment plans based on your budget. Start from as low as KSh 100.
                 </p>
                 <p style={{color: '#ff6b35', fontSize: '0.9rem', marginBottom: '1rem', textAlign: 'center'}}>
                   👆 Click on any plan below to {isAuthenticated ? 'start investing' : 'register and invest'}
@@ -114,7 +114,7 @@ const HowToInvest: React.FC = () => {
                     onClick={handlePlanClick}
                   >
                     <div style={{color: '#cd7f32', fontWeight: 'bold', fontSize: '1rem'}}>Bronze</div>
-                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 20-50</div>
+                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 100-500</div>
                     <div style={{color: '#10b981', fontSize: '0.8rem', fontWeight: '600'}}>3.5% daily</div>
                   </div>
                   
@@ -132,7 +132,7 @@ const HowToInvest: React.FC = () => {
                     onClick={handlePlanClick}
                   >
                     <div style={{color: '#c0c0c0', fontWeight: 'bold', fontSize: '1rem'}}>Silver</div>
-                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 51-500</div>
+                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 501-2K</div>
                     <div style={{color: '#10b981', fontSize: '0.8rem', fontWeight: '600'}}>4% daily</div>
                   </div>
                   
@@ -150,7 +150,7 @@ const HowToInvest: React.FC = () => {
                     onClick={handlePlanClick}
                   >
                     <div style={{color: '#3b82f6', fontWeight: 'bold', fontSize: '1rem'}}>Premium</div>
-                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 501-5K</div>
+                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 2K-10K</div>
                     <div style={{color: '#10b981', fontSize: '0.8rem', fontWeight: '600'}}>4.5% daily</div>
                   </div>
                   
@@ -168,7 +168,7 @@ const HowToInvest: React.FC = () => {
                     onClick={handlePlanClick}
                   >
                     <div style={{color: '#e5e4e2', fontWeight: 'bold', fontSize: '1rem'}}>Platinum</div>
-                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 5K-50K</div>
+                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 10K-50K</div>
                     <div style={{color: '#10b981', fontSize: '0.8rem', fontWeight: '600'}}>5% daily</div>
                   </div>
                   
@@ -186,7 +186,7 @@ const HowToInvest: React.FC = () => {
                     onClick={handlePlanClick}
                   >
                     <div style={{color: '#b9f2ff', fontWeight: 'bold', fontSize: '1rem'}}>Diamond</div>
-                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 50K-500K</div>
+                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 50K-200K</div>
                     <div style={{color: '#10b981', fontSize: '0.8rem', fontWeight: '600'}}>5.5% daily</div>
                   </div>
                   
@@ -204,7 +204,7 @@ const HowToInvest: React.FC = () => {
                     onClick={handlePlanClick}
                   >
                     <div style={{color: '#fbbf24', fontWeight: 'bold', fontSize: '1rem'}}>Gold</div>
-                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 500K-1M</div>
+                    <div style={{color: '#cccccc', fontSize: '0.85rem', margin: '0.25rem 0'}}>KSh 200K-1M</div>
                     <div style={{color: '#10b981', fontSize: '0.8rem', fontWeight: '600'}}>6% daily</div>
                   </div>
                 </div>
@@ -310,15 +310,15 @@ const HowToInvest: React.FC = () => {
             </p>
             <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem'}}>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '0.5rem'}}>KSh 5,000</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '0.5rem'}}>KSh 10,000</div>
                 <div style={{color: '#cccccc'}}>Initial Investment</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 225/day</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem'}}>KSh 450/day</div>
                 <div style={{color: '#cccccc'}}>Daily Profit (4.5%)</div>
               </div>
               <div>
-                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 25,250</div>
+                <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#ff6b35', marginBottom: '0.5rem'}}>KSh 50,500</div>
                 <div style={{color: '#cccccc'}}>Total After 90 Days</div>
               </div>
             </div>

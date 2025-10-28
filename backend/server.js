@@ -100,6 +100,29 @@ app.use('/api/users', userRouter);
 app.use('/api/investments', investmentRouter);
 app.use('/api/admin', adminRouter);
 
+// Add manual returns calculation endpoint
+app.post('/api/admin/calculate-returns', async (req, res) => {
+  try {
+    console.log('🔄 Manual returns calculation triggered via API...');
+    
+    // Use the automated service for consistency
+    await AutomatedReturnsService.triggerManualCalculation();
+    
+    res.json({ 
+      success: true, 
+      message: 'Daily returns calculation completed successfully',
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Error in manual returns calculation:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message 
+    });
+  }
+});
+
 // Test environment endpoint
 const testEnvRouter = require('./routes/test-env');
 app.use('/api/payments', testEnvRouter);
@@ -109,8 +132,8 @@ app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Daily returns service
-const DailyReturnsService = require('./services/DailyReturnsService');
+// Automated returns service
+const AutomatedReturnsService = require('./services/AutomatedReturnsService');
 
 // start server
 const port = process.env.PORT || 4000;
@@ -119,17 +142,70 @@ async function startServer() {
   try {
     await connectDB();
     
-    // Start daily returns cron job
-    DailyReturnsService.startDailyReturnsJob();
+    // Initialize database schema
+    await initializeDatabase();
+    
+    // Start automated daily returns service
+    AutomatedReturnsService.startAutomatedReturns();
     
     app.listen(port, () => {
       console.log(`🚀 Server running on http://localhost:${port}`);
       console.log(`📊 Health check: http://localhost:${port}/api/health`);
-      console.log(`⏰ Daily returns job active - runs at midnight`);
+      console.log(`⏰ Automated returns service active - runs daily at midnight`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);
     process.exit(1);
+  }
+}
+
+async function initializeDatabase() {
+  const { Pool } = require('pg');
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/fortune_investment'
+  });
+  
+  const client = await pool.connect();
+  
+  try {
+    console.log('🔄 Initializing database schema...');
+    
+    // Add missing columns to investments table
+    const alterQueries = [
+      `ALTER TABLE investments ADD COLUMN IF NOT EXISTS current_return DECIMAL(15,2) DEFAULT 0.00`,
+      `ALTER TABLE investments ADD COLUMN IF NOT EXISTS current_value DECIMAL(15,2) DEFAULT 0.00`,
+      `ALTER TABLE investments ADD COLUMN IF NOT EXISTS progress DECIMAL(5,2) DEFAULT 0.00`,
+      `ALTER TABLE investments ADD COLUMN IF NOT EXISTS days_passed INTEGER DEFAULT 0`,
+      `ALTER TABLE investments ADD COLUMN IF NOT EXISTS plan_id INTEGER`,
+      `ALTER TABLE investments ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'active'`,
+      `ALTER TABLE investments ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW()`
+    ];
+    
+    for (const query of alterQueries) {
+      try {
+        await client.query(query);
+      } catch (error) {
+        if (error.code !== '42701') { // Ignore 'column already exists' errors
+          console.error('Schema update error:', error.message);
+        }
+      }
+    }
+    
+    // Update existing investments
+    await client.query(`
+      UPDATE investments 
+      SET status = COALESCE(status, 'active'),
+          current_value = COALESCE(current_value, amount),
+          updated_at = COALESCE(updated_at, NOW())
+      WHERE status IS NULL OR current_value IS NULL
+    `);
+    
+    console.log('✅ Database schema initialized');
+    
+  } catch (error) {
+    console.error('❌ Database initialization error:', error);
+  } finally {
+    client.release();
   }
 }
 

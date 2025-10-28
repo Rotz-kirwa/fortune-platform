@@ -78,6 +78,7 @@ const investmentController = {
 
       const investment = await Investment.create({
         user_id,
+        plan_id: plan.id,
         plan_name: plan.name,
         amount: parseFloat(amount),
         daily_return_rate: plan.daily_return_rate,
@@ -101,20 +102,14 @@ const investmentController = {
       const investments = await Investment.findByUserId(user_id);
       console.log('Found investments:', investments.length);
       
-      // Calculate current returns for each investment
-      const investmentsWithReturns = investments.map(inv => {
-        const daysPassed = Math.floor((new Date() - new Date(inv.created_at)) / (1000 * 60 * 60 * 24));
-        const currentReturn = inv.amount * inv.daily_return_rate * Math.min(daysPassed, inv.duration_days);
-        const currentValue = parseFloat(inv.amount) + currentReturn;
-        
-        return {
-          ...inv,
-          days_passed: daysPassed,
-          current_return: currentReturn.toFixed(2),
-          current_value: currentValue.toFixed(2),
-          progress: Math.min((daysPassed / inv.duration_days) * 100, 100).toFixed(1)
-        };
-      });
+      // Return investments with current data (updated by automated service)
+      const investmentsWithReturns = investments.map(inv => ({
+        ...inv,
+        current_return: parseFloat(inv.current_return || 0).toFixed(2),
+        current_value: parseFloat(inv.current_value || inv.amount).toFixed(2),
+        progress: parseFloat(inv.progress || 0).toFixed(1),
+        days_passed: inv.days_passed || 0
+      }));
 
       res.json(investmentsWithReturns);
     } catch (error) {
@@ -136,12 +131,10 @@ const investmentController = {
       const investments = await Investment.findByUserId(user_id);
       console.log('User investments:', investments.length);
 
-      // Calculate total current returns
+      // Calculate total current returns from stored values
       let totalCurrentReturns = 0;
       investments.forEach(inv => {
-        const daysPassed = Math.floor((new Date() - new Date(inv.created_at)) / (1000 * 60 * 60 * 24));
-        const currentReturn = inv.amount * inv.daily_return_rate * Math.min(daysPassed, inv.duration_days);
-        totalCurrentReturns += currentReturn;
+        totalCurrentReturns += parseFloat(inv.current_return || 0);
       });
 
       // Handle case where user has no investments
@@ -151,8 +144,8 @@ const investmentController = {
         total_returns: stats?.total_returns || '0.00',
         portfolio_value: stats?.portfolio_value || '0.00',
         total_current_returns: totalCurrentReturns.toFixed(2),
-        current_portfolio_value: (parseFloat(stats?.total_invested || '0') + totalCurrentReturns).toFixed(2),
-        active_investments: investments.filter(inv => inv.status === 'active').length
+        current_portfolio_value: stats?.portfolio_value || '0.00',
+        active_investments: investments.filter(inv => inv.status === 'active' || !inv.status).length
       };
 
       console.log('Final dashboard data:', dashboardData);
